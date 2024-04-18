@@ -1,6 +1,7 @@
 import Link from "next/link";
-import SignOut from "../auth/signout";
 import { supabaseServer } from "@/utils/supabase/supabaseServer";
+import AvatarSetting from "../auth/avatar-setting";
+import SignIn from "../auth/signin";
 
 export default async function Header() {
   const supabase = supabaseServer();
@@ -30,7 +31,15 @@ export default async function Header() {
             </Link>
           </nav>
         </div>
-        <nav>{user ? <SignOut /> : <></>}</nav>
+        <nav>
+          {user ? (
+            <AvatarSetting user={user} />
+          ) : (
+            <>
+              <SignIn />
+            </>
+          )}
+        </nav>
       </div>
     </header>
   );
