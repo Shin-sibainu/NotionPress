@@ -11,16 +11,31 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
-import { useState } from "react";
 import { User } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 
-type Checked = DropdownMenuCheckboxItemProps["checked"];
-
-export default function AvatarSetting({ user }: { user: User | null }) {
+export default function AvatarSetting({
+  user,
+  userData,
+}: {
+  user: User | null;
+  userData: { domain: string; template_id: number } | null;
+}) {
   const supabase = createClientComponentClient();
   const router = useRouter();
+
+  let blogTemplateName;
+  const domain = userData?.domain;
+  const templateId = userData?.template_id;
+
+  switch (templateId) {
+    case 1:
+      blogTemplateName = "basic";
+      break;
+    case 2:
+      blogTemplateName = "classic";
+      break;
+  }
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -28,12 +43,6 @@ export default function AvatarSetting({ user }: { user: User | null }) {
   };
 
   return (
-    // <button
-    //   className={cn(buttonVariants({ variant: "secondary" }))}
-    //   onClick={handleSignOut}
-    // >
-    //   ログアウト
-    // </button>
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
@@ -42,17 +51,28 @@ export default function AvatarSetting({ user }: { user: User | null }) {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>設定</DropdownMenuLabel>
+        <DropdownMenuLabel className="ml-2">設定</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem>
-          <Link href={`domain/dashboard`}>ダッシュボード</Link>
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>
-          <Link href={`domain/dashboard`}>公開中のブログ</Link>
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>
-          <button onClick={handleSignOut}>ログアウト</button>
-        </DropdownMenuCheckboxItem>
+        <div className="p-2">
+          <Link
+            href={`/${domain}/dashboard/blog`}
+            className="block w-full text-left px-2 py-1 hover:bg-gray-100 rounded-md"
+          >
+            ダッシュボード
+          </Link>
+          <Link
+            href={`/${blogTemplateName}/${domain}`}
+            className="block w-full text-left px-2 py-1 hover:bg-gray-100 rounded-md"
+          >
+            公開中のブログ
+          </Link>
+          <button
+            onClick={handleSignOut}
+            className="w-full text-left px-2 py-1 hover:bg-gray-100 rounded-md"
+          >
+            ログアウト
+          </button>
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   );

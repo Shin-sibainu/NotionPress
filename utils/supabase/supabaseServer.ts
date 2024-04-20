@@ -3,5 +3,5 @@ import { cookies } from "next/headers";
 
 export const supabaseServer = () => {
   cookies().getAll();
-  return createServerComponentClient({ cookies });
+  return createServerComponentClient<Database>({ cookies });
 };

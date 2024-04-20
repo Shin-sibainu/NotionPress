@@ -1,13 +1,10 @@
-import Header from "@/components/marketing/header";
-
-export default function DashBoardLayout({
+export default function ClassicNotionBlogLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <div>
-      <Header />
       <main>{children}</main>
     </div>
   );

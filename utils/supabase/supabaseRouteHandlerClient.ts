@@ -3,5 +3,5 @@ import { cookies } from "next/headers";
 
 export const supabaseRouteHandlerClient = () => {
   cookies().getAll();
-  return createRouteHandlerClient({ cookies });
+  return createRouteHandlerClient<Database>({ cookies });
 };

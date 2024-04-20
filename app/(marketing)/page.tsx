@@ -7,7 +7,7 @@ export default function IndexPage() {
     <div>
       <section className="container">
         <div className="mx-auto text-center md:py-48 space-y-4 py-20">
-          <h1 className="lg:text-9xl md:text-8xl text-7xl font-extrabold tracking-tighter">
+          <h1 className="lg:text-9xl md:text-8xl sm:text-7xl text-5xl font-extrabold tracking-tighter">
             NotionPress🚀
           </h1>
           <div className="text-muted-foreground md:text-xl">
