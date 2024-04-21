@@ -46,7 +46,10 @@ export default function AvatarSetting({
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarImage src={user?.user_metadata.avatar_url} alt="@shadcn" />
+          <AvatarImage
+            src={user?.user_metadata.avatar_url}
+            alt="profile_icon"
+          />
           <AvatarFallback>{user?.user_metadata.name}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>

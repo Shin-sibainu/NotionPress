@@ -62,6 +62,7 @@ export default async function BlogHomePage({
   return (
     <div>
       <BasicNotionBlog
+        domain={domain}
         user={user}
         userData={userData}
         notionBlogData={notionBlogData}

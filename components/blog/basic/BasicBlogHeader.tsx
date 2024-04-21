@@ -14,19 +14,34 @@ export default async function BasicBlogHeader() {
   return (
     <header className="py-6">
       <div className="flex items-center gap-5">
-        <Link href={`/basic/${domain}`} className="font-bold md:text-2xl">
+        <Link href={`/basic/${domain}`} className="font-bold md:text-3xl">
           ShinCode
         </Link>
         <nav>
-          <ul className="flex items-center gap-4">
+          <ul className="flex items-center gap-5">
             <li>
-              <Link href={`/basic/${domain}`}>Home</Link>
+              <Link
+                href={`/basic/${domain}`}
+                className={`hover:text-muted-foreground duration-300`}
+              >
+                Home
+              </Link>
             </li>
             <li>
-              <Link href={`/basic/${domain}/posts`}>Blogs</Link>
+              <Link
+                href={`/basic/${domain}/posts`}
+                className={`hover:text-muted-foreground duration-300`}
+              >
+                Blogs
+              </Link>
             </li>
             <li>
-              <Link href={`/basic/${domain}/about`}>About</Link>
+              <Link
+                href={`/basic/${domain}/about`}
+                className={`hover:text-muted-foreground duration-300`}
+              >
+                About
+              </Link>
             </li>
           </ul>
         </nav>
