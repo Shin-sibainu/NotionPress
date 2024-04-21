@@ -26,7 +26,7 @@ export default function IndexPage() {
               href={"/"}
               className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
             >
-              Github
+              サンプル
             </Link>
           </div>
         </div>

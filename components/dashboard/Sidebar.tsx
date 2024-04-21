@@ -33,7 +33,7 @@ export default function Sidebar({
                 />
               </svg>
 
-              <span>ブログ</span>
+              <span>ブログ設定</span>
             </Link>
           </li>
           <li className="flex items-center">

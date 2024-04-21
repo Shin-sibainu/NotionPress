@@ -4,7 +4,6 @@ import HowToWriteBlogWithNotion from "@/components/dashboard/content-view/HowToW
 import Sidebar from "@/components/dashboard/sidebar";
 import { notFound } from "next/navigation";
 
-//basic or classicかデータ取得で判断する
 export default function DashBoardPage({
   params,
 }: {
@@ -12,8 +11,6 @@ export default function DashBoardPage({
 }) {
   const domain = params.domain;
   const section = params.section;
-
-  
 
   const renderSection = () => {
     switch (section) {

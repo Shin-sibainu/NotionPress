@@ -3,16 +3,7 @@ import { supabaseServer } from "@/utils/supabase/supabaseServer";
 import AvatarSetting from "../auth/avatar-setting";
 import SignInOnHomePage from "../auth/signin-on-home-page";
 import { SupabaseClient } from "@supabase/auth-helpers-nextjs";
-
-const getUserData = async (supabase: SupabaseClient, id: string) => {
-  const { data: userData } = await supabase
-    .from("users")
-    .select("domain, template_id")
-    .eq("id", id)
-    .single();
-
-  return userData;
-};
+import { getUserDomainAndTemplateIdData } from "@/utils/supabase/getUserData";
 
 export default async function Header() {
   const supabase = supabaseServer();
@@ -20,7 +11,7 @@ export default async function Header() {
   const { data } = await supabase.auth.getUser();
   const user = data.user;
 
-  const userData = await getUserData(supabase, user?.id!);
+  const userData = await getUserDomainAndTemplateIdData(supabase, user?.id!);
 
   return (
     <header className="container pt-6">
@@ -40,7 +31,7 @@ export default async function Header() {
               href={"/template"}
               className="hover:text-muted-foreground/70 sm:text-sm pt-1"
             >
-              テンプレート
+              サンプル
             </Link>
           </nav>
         </div>

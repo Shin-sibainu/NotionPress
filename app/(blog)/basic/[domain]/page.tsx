@@ -40,6 +40,8 @@ export default async function BlogHomePage({
 
   const supabase = supabaseServer();
   const userData = await getUserData(domain, supabase);
+  const { data } = await supabase.auth.getUser();
+  const user = data.user;
 
   if (!userData) {
     return (
@@ -59,7 +61,11 @@ export default async function BlogHomePage({
 
   return (
     <div>
-      <BasicNotionBlog userData={userData} notionBlogData={notionBlogData} />
+      <BasicNotionBlog
+        user={user}
+        userData={userData}
+        notionBlogData={notionBlogData}
+      />
     </div>
   );
 }

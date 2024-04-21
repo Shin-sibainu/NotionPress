@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:types": "npx supabase gen types typescript --project-id czvzxzjqqaskbqsqrvyu --schema public > lib/database.types.ts"
+    "db:types": "npx supabase gen types typescript --project-id czvzxzjqqaskbqsqrvyu --schema public > lib/database.types.ts",
+    "shadcn": "npx shadcn-ui@latest add"
   },
   "dependencies": {
     "@notionhq/client": "^2.2.15",
