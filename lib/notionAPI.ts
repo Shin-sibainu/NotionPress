@@ -8,6 +8,7 @@ import {
   QueryDatabaseResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import { format } from "date-fns";
+import { NotionToMarkdown } from "notion-to-md";
 
 //https://github.com/ymtdzzz/notion-blog-converter/blob/main/src/notion/client.ts
 
@@ -35,6 +36,12 @@ export const getAllPosts = async (notion: Client, notionId: string) => {
             equals: true,
           },
         },
+        sorts: [
+          {
+            property: "Date",
+            direction: "descending",
+          },
+        ],
       });
 
       hasMore = res.has_more;
@@ -52,12 +59,7 @@ export const getAllPosts = async (notion: Client, notionId: string) => {
   const result: NotionPageData[] = [];
 
   for (const post of posts) {
-    result.push({
-      id: post.id,
-      title: getTitle(post),
-      tags: getTags(post),
-      date: getDate(post),
-    });
+    result.push(getPageMetaData(post));
   }
 
   return result;
@@ -69,8 +71,38 @@ export const getPostsForHomePage = async (
   pageSize: number = 4
 ) => {
   const allPostForHome = await getAllPosts(notion, notionId);
-  console.log(allPostForHome);
-  // return allPostForHome.slice(0, pageSize);
+  return allPostForHome.slice(0, pageSize);
+};
+
+export const getDetailPost = async (
+  notion: Client,
+  notionId: string,
+  slug: string
+) => {
+  const response = await notion.databases.query({
+    database_id: notionId,
+    filter: {
+      property: "Slug",
+      formula: {
+        string: {
+          equals: slug,
+        },
+      },
+    },
+  });
+
+  const page = response.results[0] as PageObjectResponse;
+  const metadata = getPageMetaData(page);
+
+  //https://github.com/souvikinator/notion-to-md
+  const n2m = new NotionToMarkdown({ notionClient: notion });
+  const mdBlocks = await n2m.pageToMarkdown(page.id);
+  const mdString = n2m.toMarkdownString(mdBlocks).parent;
+
+  return {
+    metadata,
+    markdown: mdString,
+  };
 };
 
 function isPageObjectResponse(
@@ -83,6 +115,16 @@ function isPageObjectResponse(
   return (
     "parent" in res && "icon" in res && "cover" in res && "created_by" in res
   );
+}
+
+function getPageMetaData(post: PageObjectResponse) {
+  return {
+    id: post.id,
+    title: getTitle(post),
+    tags: getTags(post),
+    date: getDate(post),
+    slug: getSlug(post),
+  };
 }
 
 function getTitle(page: PageObjectResponse): string {
@@ -101,4 +143,11 @@ function getTags(page: PageObjectResponse): string[] {
 
 function getDate(page: PageObjectResponse): string {
   return format(new Date(page.last_edited_time), "yyyy-MM-dd");
+}
+
+function getSlug(page: PageObjectResponse): string {
+  const slug = page.properties.Slug;
+  return slug.type === "rich_text" && slug.rich_text.length > 0
+    ? slug.rich_text[0].plain_text
+    : "";
 }

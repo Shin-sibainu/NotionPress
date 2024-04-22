@@ -3,22 +3,30 @@ import { NotionPageData } from "@/types";
 import { User } from "@supabase/auth-helpers-nextjs";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import BasicBlogList from "./basic/BasicBlogCardList";
+import Link from "next/link";
+import { getNotionHomePagePosts } from "@/utils/notion/getNotionData";
 
 interface BasicNotionBlogProps {
   domain: string;
   user: User | null;
   userData: userData;
-  notionBlogData: NotionPageData[] | null;
 }
 
-export default function BasicNotionBlog({
+export default async function BasicNotionBlog({
   domain,
   user,
   userData,
-  notionBlogData,
 }: BasicNotionBlogProps) {
   const userDisplayName = user?.user_metadata.name;
   const profileImageUrl = user?.user_metadata.avatar_url;
+
+  const notionToken = userData?.notion_token!;
+  const notionId = userData?.notion_id!;
+
+  const notionBlogPostsForHome = await getNotionHomePagePosts(
+    notionToken,
+    notionId
+  );
 
   return (
     <div className="py-2">
@@ -43,9 +51,21 @@ export default function BasicNotionBlog({
           <hr />
 
           <div>
-            <BasicBlogList domain={domain} notionBlogData={notionBlogData} />
+            <BasicBlogList
+              domain={domain}
+              notionBlogData={notionBlogPostsForHome}
+            />
           </div>
         </div>
+      </div>
+
+      <div className="py-3 text-center">
+        <Link
+          className="text-sky-600 underline underline-offset-4"
+          href={`/basic/${domain}/posts`}
+        >
+          全ての記事を見る
+        </Link>
       </div>
     </div>
   );

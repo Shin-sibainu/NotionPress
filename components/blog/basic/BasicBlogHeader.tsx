@@ -37,10 +37,10 @@ export default async function BasicBlogHeader() {
             </li>
             <li>
               <Link
-                href={`/basic/${domain}/about`}
+                href={`/basic/${domain}/tags`}
                 className={`hover:text-muted-foreground duration-300`}
               >
-                About
+                Tags
               </Link>
             </li>
           </ul>

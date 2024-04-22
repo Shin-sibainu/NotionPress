@@ -1,7 +1,37 @@
-export default function BasicNotionBlogPostsList() {
+import BasicBlogCardList from "@/components/blog/basic/BasicBlogCardList";
+import { getAllNotionPosts } from "@/utils/notion/getNotionData";
+import { getUserAllData } from "@/utils/supabase/getUserData";
+import { supabaseServer } from "@/utils/supabase/supabaseServer";
+import Link from "next/link";
+
+export default async function BasicNotionBlogPostsList({
+  params,
+}: {
+  params: { domain: string };
+}) {
+  const domain = params.domain;
+
+  const supabase = supabaseServer();
+  const userData = await getUserAllData(domain, supabase);
+
+  const notionBlogData = await getAllNotionPosts(
+    userData?.notion_token!,
+    userData?.notion_id!
+  );
+
   return (
-    <div>
-      <div>Posts List</div>
+    <div className="py-7">
+      <div className="space-y-4">
+        <span className="font-bold text-xl text-muted-foreground">
+          ブログ一覧
+        </span>
+
+        <hr />
+      </div>
+
+      <div className="py-4">
+        <BasicBlogCardList domain={domain} notionBlogData={notionBlogData} />
+      </div>
     </div>
   );
 }
