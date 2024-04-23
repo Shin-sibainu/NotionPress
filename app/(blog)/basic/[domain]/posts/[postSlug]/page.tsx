@@ -1,8 +1,7 @@
 import { Badge, badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { getNotionDetailPostData } from "@/utils/notion/getNotionData";
-import { getUserAllData } from "@/utils/supabase/getUserData";
-import { supabaseServer } from "@/utils/supabase/supabaseServer";
+import { getUserAllData } from "@/utils/supabase/auth-helpers/getUserData";
 import Link from "next/link";
 import { ClassAttributes, HTMLAttributes } from "react";
 import ReactMarkdown, { ExtraProps } from "react-markdown";
@@ -20,8 +19,7 @@ export default async function BasicNotionBlogDetailPage({
   const domain = params.domain;
   const postSlug = params.postSlug;
 
-  const supabase = supabaseServer();
-  const userData = await getUserAllData(domain, supabase);
+  const userData = await getUserAllData(domain);
   const notionToken = userData?.notion_token!;
   const notionId = userData?.notion_id!;
 
@@ -66,9 +64,10 @@ export default async function BasicNotionBlogDetailPage({
         ))}
       </div>
       <div className="py-4">
-        <ReactMarkdown components={{ h2: H2 }}>
+        {/* <ReactMarkdown components={{ h2: H2 }}>
           {detailPost?.markdown}
-        </ReactMarkdown>
+        </ReactMarkdown> */}
+        {detailPost?.markdown}
       </div>
     </section>
   );

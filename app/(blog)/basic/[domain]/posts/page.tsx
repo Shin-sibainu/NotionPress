@@ -1,8 +1,7 @@
 import BasicBlogCardList from "@/components/blog/basic/BasicBlogCardList";
 import { getAllNotionPosts } from "@/utils/notion/getNotionData";
-import { getUserAllData } from "@/utils/supabase/getUserData";
-import { supabaseServer } from "@/utils/supabase/supabaseServer";
-import Link from "next/link";
+import { getUserAllData } from "@/utils/supabase/auth-helpers/getUserData";
+import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
 
 export default async function BasicNotionBlogPostsList({
   params,
@@ -12,7 +11,7 @@ export default async function BasicNotionBlogPostsList({
   const domain = params.domain;
 
   const supabase = supabaseServer();
-  const userData = await getUserAllData(domain, supabase);
+  const userData = await getUserAllData(domain);
 
   const notionBlogData = await getAllNotionPosts(
     userData?.notion_token!,

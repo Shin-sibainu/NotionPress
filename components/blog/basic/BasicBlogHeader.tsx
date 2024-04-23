@@ -1,16 +1,7 @@
-import { getUserDomainAndTemplateIdData } from "@/utils/supabase/getUserData";
-import { supabaseServer } from "@/utils/supabase/supabaseServer";
+import { getUserDomainAndTemplateIdData } from "@/utils/supabase/auth-helpers/getUserData";
 import Link from "next/link";
 
-export default async function BasicBlogHeader() {
-  const supabase = supabaseServer();
-
-  const { data } = await supabase.auth.getUser();
-  const user = data.user;
-
-  const userData = await getUserDomainAndTemplateIdData(supabase, user?.id!);
-  const domain = userData?.domain;
-
+export default async function BasicBlogHeader({ domain }: { domain: string }) {
   return (
     <header className="py-6">
       <div className="flex items-center gap-5">

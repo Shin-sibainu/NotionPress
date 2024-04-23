@@ -1,5 +1,4 @@
 import { userData } from "@/global";
-import { NotionPageData } from "@/types";
 import { User } from "@supabase/auth-helpers-nextjs";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import BasicBlogList from "./basic/BasicBlogCardList";
@@ -8,18 +7,13 @@ import { getNotionHomePagePosts } from "@/utils/notion/getNotionData";
 
 interface BasicNotionBlogProps {
   domain: string;
-  user: User | null;
   userData: userData;
 }
 
 export default async function BasicNotionBlog({
   domain,
-  user,
   userData,
 }: BasicNotionBlogProps) {
-  const userDisplayName = user?.user_metadata.name;
-  const profileImageUrl = user?.user_metadata.avatar_url;
-
   const notionToken = userData?.notion_token!;
   const notionId = userData?.notion_id!;
 
@@ -32,11 +26,11 @@ export default async function BasicNotionBlog({
     <div className="py-2">
       <div className="mx-auto flex flex-col">
         <Avatar className="mx-auto w-20 h-20">
-          <AvatarImage src={profileImageUrl} alt="profile_icon" />
-          <AvatarFallback>{user?.user_metadata.name}</AvatarFallback>
+          <AvatarImage src={""} alt="profile_icon" />
+          <AvatarFallback>{""}</AvatarFallback>
         </Avatar>
         <span className="font-bold md:text-2xl text-2xl">
-          {userDisplayName ?? "NotionPress Blog"}
+          {"NotionPress Blog"}
         </span>
         <p className="text-muted-foreground text-sm sm:text-base">
           自己紹介が入ります。自己紹介が入ります。自己紹介が入ります。自己紹介が入ります。自己紹介が入ります。自己紹介が入ります。自己紹介が入ります。自己紹介が入ります。自己紹介が入ります。自己紹介が入ります。

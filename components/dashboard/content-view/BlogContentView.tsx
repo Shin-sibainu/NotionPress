@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { supabaseServer } from "@/utils/supabase/supabaseServer";
+import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
 import { templateIdToTempalteName } from "@/utils/switch-templateId-to-templateName";
 import { SupabaseClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";

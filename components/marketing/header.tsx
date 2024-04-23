@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { supabaseServer } from "@/utils/supabase/supabaseServer";
 import AvatarSetting from "../auth/avatar-setting";
 import SignInOnHomePage from "../auth/signin-on-home-page";
 import { SupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { getUserDomainAndTemplateIdData } from "@/utils/supabase/getUserData";
+import { getUserDomainAndTemplateIdData } from "@/utils/supabase/auth-helpers/getUserData";
+import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
 
 export default async function Header() {
   const supabase = supabaseServer();

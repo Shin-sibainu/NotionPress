@@ -1,5 +1,5 @@
 import SetupStepComponent from "@/components/marketing/setup/setup-step-component";
-import { supabaseServer } from "@/utils/supabase/supabaseServer";
+import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
 
 export default async function SetupPage() {
   const supabase = supabaseServer();
