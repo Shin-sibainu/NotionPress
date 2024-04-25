@@ -58,7 +58,7 @@ export default async function BasicNotionBlog({
       <div className="py-3 text-center">
         <Link
           className="text-sky-600 underline underline-offset-4"
-          href={`/basic/${domain}/posts`}
+          href={`/basic/${domain}/posts/page/1`}
         >
           全ての記事を見る
         </Link>

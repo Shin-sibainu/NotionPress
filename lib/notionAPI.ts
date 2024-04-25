@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import { NotionToMarkdown } from "notion-to-md";
 
 //https://github.com/ymtdzzz/notion-blog-converter/blob/main/src/notion/client.ts
+//https://github.com/Shin-sibainu/notion-blog-udemy/blob/main/lib/notionAPI.ts
 
 export const notionInit = (integrationToken: string) => {
   let notion = new Client({
@@ -20,6 +21,7 @@ export const notionInit = (integrationToken: string) => {
   return notion;
 };
 
+//全記事情報取得
 export const getAllPosts = async (notion: Client, notionId: string) => {
   let posts: PageObjectResponse[] = [];
   let cursor: string | undefined;
@@ -65,6 +67,7 @@ export const getAllPosts = async (notion: Client, notionId: string) => {
   return result;
 };
 
+//Blogホームページ用
 export const getPostsForHomePage = async (
   notion: Client,
   notionId: string,
@@ -74,6 +77,7 @@ export const getPostsForHomePage = async (
   return allPostForHome.slice(0, pageSize);
 };
 
+//詳細記事
 export const getDetailPost = async (
   notion: Client,
   notionId: string,
@@ -105,6 +109,7 @@ export const getDetailPost = async (
   };
 };
 
+//タグ取得
 export const getAllTags = async (notion: Client, notionId: string) => {
   const allPosts = await getAllPosts(notion, notionId);
 
@@ -113,6 +118,42 @@ export const getAllTags = async (notion: Client, notionId: string) => {
   const allTagsList = Array.from(set);
 
   return allTagsList;
+};
+
+//ブログ記事リスト(ページネーション)
+export const getPostByPage = async (
+  notion: Client,
+  notionId: string,
+  pageNumber: number
+) => {
+  const NUMBER_OF_POSTS_PER_PAGE = 5;
+
+  const allPosts = await getAllPosts(notion, notionId);
+
+  const startIndex = (pageNumber - 1) * NUMBER_OF_POSTS_PER_PAGE;
+  const endIndex = startIndex + NUMBER_OF_POSTS_PER_PAGE;
+
+  return allPosts.slice(startIndex, endIndex);
+};
+
+//タグからブログ記事取得
+export const getPostsByTagAndPage = async (
+  notion: Client,
+  notionId: string,
+  pageNumber: number,
+  tagName: string
+) => {
+  const NUMBER_OF_POSTS_PER_PAGE = 5;
+
+  const allPosts = await getAllPosts(notion, notionId);
+  const posts = allPosts.filter((post) =>
+    post.tags.find((tag: string) => tag === tagName)
+  );
+
+  const startIndex = (pageNumber - 1) * NUMBER_OF_POSTS_PER_PAGE;
+  const endIndex = startIndex + NUMBER_OF_POSTS_PER_PAGE;
+
+  return posts.slice(startIndex, endIndex);
 };
 
 function isPageObjectResponse(

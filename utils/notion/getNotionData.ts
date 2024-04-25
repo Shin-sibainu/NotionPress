@@ -2,6 +2,8 @@ import {
   getAllPosts,
   getAllTags,
   getDetailPost,
+  getPostByPage,
+  getPostsByTagAndPage,
   getPostsForHomePage,
   notionInit,
 } from "@/lib/notionAPI";
@@ -38,6 +40,23 @@ export const getNotionHomePagePosts = async (
   }
 };
 
+export const getPostsByPageData = async (
+  notionToken: string,
+  notionId: string,
+  pageNumber: number
+) => {
+  const notion = notionInit(notionToken);
+
+  try {
+    const getPostsByPage = await getPostByPage(notion, notionId, pageNumber);
+
+    return getPostsByPage;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
 export const getNotionDetailPostData = async (
   notionToken: string,
   notionId: string,
@@ -62,6 +81,29 @@ export const getAllTagsData = async (notionToken: string, notionId: string) => {
     const allTags = await getAllTags(notion, notionId);
 
     return allTags;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+export const getPostsByTagAndPageData = async (
+  notionToken: string,
+  notionId: string,
+  pageNumber: number,
+  tagName: string
+) => {
+  const notion = notionInit(notionToken);
+
+  try {
+    const postsByTagAndPage = await getPostsByTagAndPage(
+      notion,
+      notionId,
+      pageNumber,
+      tagName
+    );
+
+    return postsByTagAndPage;
   } catch (err) {
     console.error(err);
     return null;

@@ -19,7 +19,7 @@ export default async function BasicBlogHeader({ domain }: { domain: string }) {
             </li>
             <li>
               <Link
-                href={`/basic/${domain}/posts`}
+                href={`/basic/${domain}/posts/page/1`}
                 className={`hover:text-muted-foreground duration-300`}
               >
                 Blogs
