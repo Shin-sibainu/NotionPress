@@ -14,6 +14,8 @@ export default async function BasicNotionBlog({
   domain,
   userData,
 }: BasicNotionBlogProps) {
+  const user_profile_image_url = userData?.user_profile_image_url!;
+
   const notionToken = userData?.notion_token!;
   const notionId = userData?.notion_id!;
 
@@ -26,7 +28,7 @@ export default async function BasicNotionBlog({
     <div className="py-2">
       <div className="mx-auto flex flex-col">
         <Avatar className="mx-auto w-20 h-20">
-          <AvatarImage src={""} alt="profile_icon" />
+          <AvatarImage src={user_profile_image_url} alt="profile_icon" />
           <AvatarFallback>{""}</AvatarFallback>
         </Avatar>
         <span className="font-bold md:text-2xl text-2xl">

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import AvatarSetting from "../auth/avatar-setting";
 import SignInOnHomePage from "../auth/signin-on-home-page";
-import { SupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { getUserDomainAndTemplateIdData } from "@/utils/supabase/auth-helpers/getUserData";
 import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
 

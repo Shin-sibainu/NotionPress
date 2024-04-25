@@ -18,7 +18,6 @@ export default function SetupCompleteComponent({
   const handleCreateBlog = async () => {
     setIsLoading(true);
 
-    //ブログの作成＆SupabaseDBへの保存
     try {
       await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/createNotionBlog`, {
         method: "POST",
@@ -27,6 +26,16 @@ export default function SetupCompleteComponent({
         },
         body: JSON.stringify({ setupData }),
       });
+
+      await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/updateUserProfileImage`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Types": "application/json",
+          },
+        }
+      );
 
       router.push(`/${setupData.siteDomain}/dashboard/blog`);
     } catch (err) {
@@ -38,6 +47,10 @@ export default function SetupCompleteComponent({
       setIsLoading(false);
     }
   };
+
+  if (blogCreateError) {
+    return <span>{blogCreateError}</span>;
+  }
 
   return (
     <>

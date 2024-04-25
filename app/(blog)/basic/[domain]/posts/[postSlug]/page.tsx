@@ -1,15 +1,29 @@
 import { Badge, badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import {
+  A,
+  BlockQoute,
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
+  Li,
+  P,
+  Ul,
+} from "@/utils/blog/basic/code-format";
 import { getNotionDetailPostData } from "@/utils/notion/getNotionData";
 import { getUserAllData } from "@/utils/supabase/auth-helpers/getUserData";
 import Link from "next/link";
-import { ClassAttributes, HTMLAttributes } from "react";
-import ReactMarkdown, { ExtraProps } from "react-markdown";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 // https://github.com/Shin-sibainu/notion-blog-udemy/blob/main/lib/notionAPI.ts
 // https://www.newt.so/docs/tutorials/generate-anchor-links-using-react-markdown
+// https://github.com/Shin-sibainu/notion-blog-udemy/blob/main/pages/posts/%5Bslug%5D.tsx
 
 export default async function BasicNotionBlogDetailPage({
   params,
@@ -35,19 +49,6 @@ export default async function BasicNotionBlogDetailPage({
     tags: detailPostTags,
   } = detailPost?.metadata!;
 
-  const H2 = ({
-    node,
-    children,
-  }: ClassAttributes<HTMLHeadingElement> &
-    HTMLAttributes<HTMLHeadingElement> &
-    ExtraProps) => {
-    const title =
-      node?.children[0] && "value" in node?.children[0]
-        ? node?.children[0].value
-        : "";
-    return <h2 className="font-bold text-2xl">{children}</h2>;
-  };
-
   return (
     <section className="py-5">
       <h2 className="w-full text-3xl font-medium">{detailPostTitle}</h2>
@@ -64,10 +65,52 @@ export default async function BasicNotionBlogDetailPage({
         ))}
       </div>
       <div className="py-4">
-        {/* <ReactMarkdown components={{ h2: H2 }}>
+        {/* <ReactMarkdown
+          components={{
+            h1: H1,
+            h2: H2,
+            h3: H3,
+            h4: H4,
+            h5: H5,
+            h6: H6,
+            p: P,
+            // a: A,
+            // blockquote: BlockQoute,
+            ul: Ul,
+            li: Li
+          }}
+        >
           {detailPost?.markdown}
         </ReactMarkdown> */}
-        {detailPost?.markdown}
+        <article className="prose prose-xl prose- prose-a:text-blue-600 hover:prose-a:text-blue-500">
+          <ReactMarkdown>{detailPost?.markdown}</ReactMarkdown>
+        </article>
+      </div>
+
+      <div className="py-10 space-y-1">
+        <span className="text-muted-foreground font-bold inline-block">
+          本記事のタグ
+        </span>
+        <hr />
+        <div className="flex items-center gap-1 py-1">
+          {detailPostTags.map((tag: string, index: number) => (
+            <Badge
+              key={index}
+              className={cn(badgeVariants({ variant: "default" }))}
+            >
+              <Link href={`/basic/${domain}/tags/${tag}`}>{tag}</Link>
+            </Badge>
+          ))}
+        </div>
+      </div>
+
+      <div className="py-5 text-center">
+        <Link
+          className="text-sky-600 underline underline-offset-4"
+          href={`/basic/${domain}/posts`}
+        >
+          全ての記事を見る
+        </Link>
       </div>
     </section>
   );

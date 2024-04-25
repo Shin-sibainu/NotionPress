@@ -105,6 +105,16 @@ export const getDetailPost = async (
   };
 };
 
+export const getAllTags = async (notion: Client, notionId: string) => {
+  const allPosts = await getAllPosts(notion, notionId);
+
+  const allTagsDuplicationLists = allPosts.flatMap((post) => post.tags);
+  const set = new Set(allTagsDuplicationLists);
+  const allTagsList = Array.from(set);
+
+  return allTagsList;
+};
+
 function isPageObjectResponse(
   res:
     | PageObjectResponse

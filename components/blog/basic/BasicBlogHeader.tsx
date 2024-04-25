@@ -1,4 +1,3 @@
-import { getUserDomainAndTemplateIdData } from "@/utils/supabase/auth-helpers/getUserData";
 import Link from "next/link";
 
 export default async function BasicBlogHeader({ domain }: { domain: string }) {

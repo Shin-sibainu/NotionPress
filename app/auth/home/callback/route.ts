@@ -1,5 +1,5 @@
+import { supabaseRouteHandlerClient } from "@/utils/supabase/auth-helpers/supabaseRouteHandlerClient";
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseRouteHandlerClient } from "@/utils/supabase/supabaseRouteHandlerClient";
 
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);

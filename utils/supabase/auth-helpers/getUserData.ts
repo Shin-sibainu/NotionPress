@@ -1,20 +1,30 @@
 import { supabaseClient } from "../ssr/supabaseClientInit";
+import { SupabaseClient } from "@supabase/auth-helpers-nextjs";
 
+//supabase client
 export const getUserAllData = async (domain: string) => {
-  const { data: userData } = await supabaseClient
+  const { data: userData, error } = await supabaseClient
     .from("users")
     .select("*")
-    .eq("domain", domain)
-    .single();
+    .eq("domain", domain);
 
-  return userData;
+  if (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+
+  return userData[0];
 };
 
-export const getUserDomainAndTemplateIdData = async (domain: string) => {
-  const { data: userData } = await supabaseClient
+//auth-helpers
+export const getUserDomainAndTemplateIdData = async (
+  supabase: SupabaseClient,
+  id: string
+) => {
+  const { data: userData } = await supabase
     .from("users")
     .select("domain, template_id")
-    .eq("domain", domain)
+    .eq("id", id)
     .single();
 
   return userData;

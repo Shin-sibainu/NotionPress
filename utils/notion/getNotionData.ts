@@ -1,5 +1,6 @@
 import {
   getAllPosts,
+  getAllTags,
   getDetailPost,
   getPostsForHomePage,
   notionInit,
@@ -48,6 +49,19 @@ export const getNotionDetailPostData = async (
     const notionDetailBlogData = await getDetailPost(notion, notionId, slug);
 
     return notionDetailBlogData;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+export const getAllTagsData = async (notionToken: string, notionId: string) => {
+  const notion = notionInit(notionToken);
+
+  try {
+    const allTags = await getAllTags(notion, notionId);
+
+    return allTags;
   } catch (err) {
     console.error(err);
     return null;

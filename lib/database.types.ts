@@ -1,6 +1,47 @@
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[];
+
 export type Database = {
   public: {
     Tables: {
+      blog_meta_data: {
+        Row: {
+          author: string | null;
+          bio: string | null;
+          created_at: string;
+          google_adsense: string | null;
+          id: number;
+          name: string | null;
+          website: string | null;
+          x_id: string | null;
+        };
+        Insert: {
+          author?: string | null;
+          bio?: string | null;
+          created_at?: string;
+          google_adsense?: string | null;
+          id?: number;
+          name?: string | null;
+          website?: string | null;
+          x_id?: string | null;
+        };
+        Update: {
+          author?: string | null;
+          bio?: string | null;
+          created_at?: string;
+          google_adsense?: string | null;
+          id?: number;
+          name?: string | null;
+          website?: string | null;
+          x_id?: string | null;
+        };
+        Relationships: [];
+      };
       users: {
         Row: {
           created_at: string;
@@ -11,6 +52,7 @@ export type Database = {
           notion_id: string | null;
           notion_token: string | null;
           template_id: number | null;
+          user_profile_image_url: string | null;
         };
         Insert: {
           created_at?: string;
@@ -21,6 +63,7 @@ export type Database = {
           notion_id?: string | null;
           notion_token?: string | null;
           template_id?: number | null;
+          user_profile_image_url?: string | null;
         };
         Update: {
           created_at?: string;
@@ -31,6 +74,7 @@ export type Database = {
           notion_id?: string | null;
           notion_token?: string | null;
           template_id?: number | null;
+          user_profile_image_url?: string | null;
         };
         Relationships: [
           {
