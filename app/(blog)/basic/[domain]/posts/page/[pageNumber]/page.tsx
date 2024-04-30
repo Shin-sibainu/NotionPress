@@ -1,6 +1,7 @@
 import BasicBlogCardList from "@/components/blog/basic/BasicBlogCardList";
+import { PaginationComponent } from "@/components/pagination";
 import {
-  getAllNotionPosts,
+  getNumberOfPagesData,
   getPostsByPageData,
 } from "@/utils/notion/getNotionData";
 import { getUserAllData } from "@/utils/supabase/auth-helpers/getUserData";
@@ -11,7 +12,7 @@ export default async function BasicNotionBlogPostsListByPageNumber({
   params: { domain: string; pageNumber: number };
 }) {
   const domain = params.domain;
-  const pageNumber = params.pageNumber;
+  const currentPageNumber = Number(params.pageNumber);
 
   const userData = await getUserAllData(domain);
   const notionToken = userData?.notion_token!;
@@ -20,8 +21,13 @@ export default async function BasicNotionBlogPostsListByPageNumber({
   const getPostsByPage = await getPostsByPageData(
     notionToken,
     notionId,
-    pageNumber
+    currentPageNumber
   );
+
+  const numberOfPages = (await getNumberOfPagesData(
+    notionToken,
+    notionId
+  )) as number;
 
   return (
     <div className="py-7">
@@ -43,7 +49,13 @@ export default async function BasicNotionBlogPostsListByPageNumber({
         </div>
       )}
 
-      <div>ページネーション</div>
+      <div className="py-8">
+        <PaginationComponent
+          numberOfPages={numberOfPages}
+          tag={""}
+          currentPageNumber={currentPageNumber}
+        />
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import {
+  getNumberOfPages,
   getAllPosts,
   getAllTags,
   getDetailPost,
@@ -104,6 +105,22 @@ export const getPostsByTagAndPageData = async (
     );
 
     return postsByTagAndPage;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+export const getNumberOfPagesData = async (
+  notionToken: string,
+  notionId: string
+) => {
+  const notion = notionInit(notionToken);
+
+  try {
+    const numberOfPages = await getNumberOfPages(notion, notionId);
+
+    return numberOfPages;
   } catch (err) {
     console.error(err);
     return null;

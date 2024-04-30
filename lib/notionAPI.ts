@@ -156,6 +156,17 @@ export const getPostsByTagAndPage = async (
   return posts.slice(startIndex, endIndex);
 };
 
+//記事数からページ数をカウント取得
+export const getNumberOfPages = async (notion: Client, notionId: string) => {
+  const NUMBER_OF_POSTS_PER_PAGE = 5;
+  const allPosts = await getAllPosts(notion, notionId);
+
+  return (
+    Math.floor(allPosts.length / NUMBER_OF_POSTS_PER_PAGE) +
+    (allPosts.length % NUMBER_OF_POSTS_PER_PAGE > 0 ? 1 : 0)
+  );
+};
+
 function isPageObjectResponse(
   res:
     | PageObjectResponse
