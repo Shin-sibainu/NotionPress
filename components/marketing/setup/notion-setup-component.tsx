@@ -1,6 +1,7 @@
 import { buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Icons } from "@/lib/Icons";
 import { cn } from "@/lib/utils";
 import {
   validateNotionIdredentials,
@@ -24,6 +25,7 @@ export default function NotionSetupComponent({
   );
   const [notionId, setNotionId] = useState("127ef6b3de6b408880c046925f5917c6");
   const [errorToken, setErrorToken] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorId, setErrorID] = useState("");
   const [errorNotionTokenCredentials, setErrorNotionTokenCredentials] =
     useState("");
@@ -42,6 +44,7 @@ export default function NotionSetupComponent({
       setErrorNotionTokenCredentials(
         "Notion Token validation failed due to an error."
       );
+      setIsLoading(false);
     }
 
     try {
@@ -63,11 +66,13 @@ export default function NotionSetupComponent({
       setErrorNotionIdCredentials(
         "Notion ID validation failed due to an error."
       );
+      setIsLoading(false);
     }
   }
 
   const handleSubmit = async () => {
     let isValid = true;
+    setIsLoading(true);
 
     if (notionToken === "") {
       setErrorToken("Notion Integration Tokenを入力してください。");
@@ -91,6 +96,7 @@ export default function NotionSetupComponent({
       if (isValid) {
         onSuccess();
       } else {
+        setIsLoading(false);
         return;
       }
     }
@@ -156,7 +162,7 @@ export default function NotionSetupComponent({
           <p className="text-red-500 font-bold">{errorNotionIdCredentials}</p>
         )}
       </div>
-      <div className="space-x-2">
+      <div className="space-x-2 flex items-center">
         <button
           className={cn(buttonVariants({ variant: "secondary" }))}
           onClick={() => onBack()}
@@ -167,7 +173,11 @@ export default function NotionSetupComponent({
           className={cn(buttonVariants({ variant: "outline" }))}
           onClick={handleSubmit}
         >
-          決定
+          {isLoading ? (
+            <Icons.spinner className="animate-spin w-6 h-6" />
+          ) : (
+            "決定"
+          )}
         </button>
       </div>
     </>

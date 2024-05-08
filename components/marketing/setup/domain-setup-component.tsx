@@ -13,7 +13,7 @@ export default function DomainSetupComponent({
   onSuccess: () => void;
   updateData: (data: { siteDomain: string }) => void;
 }) {
-  const [domain, setDomain] = useState("shincode_blog");
+  const [domain, setDomain] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

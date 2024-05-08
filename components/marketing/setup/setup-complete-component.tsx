@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { SetupData } from "./setup-step-component";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Icons } from "@/lib/Icons";
 
 export default function SetupCompleteComponent({
   onBack,
@@ -37,13 +38,23 @@ export default function SetupCompleteComponent({
         }
       );
 
+      await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/createBlogMetaData`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Types": "application/json",
+          },
+          body: JSON.stringify({ setupData }),
+        }
+      );
+
       router.push(`/${setupData.siteDomain}/dashboard/blog`);
     } catch (err) {
       console.log(err);
       setBlogCreateError(
         "ブログの作成に失敗しました。もう一度最初から設定をお願いします。"
       );
-    } finally {
       setIsLoading(false);
     }
   };
@@ -55,7 +66,12 @@ export default function SetupCompleteComponent({
   return (
     <>
       {isLoading ? (
-        <>ブログの作成中...</>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="text-center space-y-4">
+            <span className="font-bold text-xl">ブログの作成中です...</span>
+            <Icons.spinner className="animate-spin text-center mx-auto h-20 w-20" />
+          </div>
+        </div>
       ) : (
         <>
           <h3 className="font-medium text-3xl">入力情報の確認</h3>

@@ -50,7 +50,7 @@ export default async function BasicNotionBlogDetailPage({
   } = detailPost?.metadata!;
 
   return (
-    <section className="py-5">
+    <section className="py-5 mb-1">
       <h2 className="w-full text-3xl font-medium">{detailPostTitle}</h2>
       <div className="border-b-2 w-1/3 mt-1 border-sky-900"></div>
       <span className="text-muted-foreground">公開日 {detailPostDate}</span>
@@ -60,12 +60,14 @@ export default async function BasicNotionBlogDetailPage({
             key={index}
             className={cn(badgeVariants({ variant: "default" }))}
           >
-            <Link href={`/basic/${domain}/tags/${tag}`}>{tag}</Link>
+            <Link href={`/basic/${domain}/tags/${tag}/1`}>{tag}</Link>
           </Badge>
         ))}
       </div>
-      <div className="py-4">
-        {/* <ReactMarkdown
+
+      <div className="flex flex-col">
+        <div className="py-4">
+          {/* <ReactMarkdown
           components={{
             h1: H1,
             h2: H2,
@@ -82,35 +84,36 @@ export default async function BasicNotionBlogDetailPage({
         >
           {detailPost?.markdown}
         </ReactMarkdown> */}
-        <article className="prose prose-xl prose- prose-a:text-blue-600 hover:prose-a:text-blue-500">
-          <ReactMarkdown>{detailPost?.markdown}</ReactMarkdown>
-        </article>
-      </div>
-
-      <div className="py-10 space-y-1">
-        <span className="text-muted-foreground font-bold inline-block">
-          本記事のタグ
-        </span>
-        <hr />
-        <div className="flex items-center gap-1 py-1">
-          {detailPostTags.map((tag: string, index: number) => (
-            <Badge
-              key={index}
-              className={cn(badgeVariants({ variant: "default" }))}
-            >
-              <Link href={`/basic/${domain}/tags/${tag}`}>{tag}</Link>
-            </Badge>
-          ))}
+          <article className="prose prose-xl prose- prose-a:text-blue-600 hover:prose-a:text-blue-500">
+            <ReactMarkdown>{detailPost?.markdown}</ReactMarkdown>
+          </article>
         </div>
-      </div>
 
-      <div className="py-5 text-center">
-        <Link
-          className="text-sky-600 underline underline-offset-4"
-          href={`/basic/${domain}/posts`}
-        >
-          全ての記事を見る
-        </Link>
+        <div className="py-10 space-y-1">
+          <span className="text-muted-foreground font-bold inline-block">
+            本記事のタグ
+          </span>
+          <hr />
+          <div className="flex items-center gap-1 py-1">
+            {detailPostTags.map((tag: string, index: number) => (
+              <Badge
+                key={index}
+                className={cn(badgeVariants({ variant: "default" }))}
+              >
+                <Link href={`/basic/${domain}/tags/${tag}/1`}>{tag}</Link>
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        <div className="py-0 text-center">
+          <Link
+            className="text-sky-600 underline underline-offset-4"
+            href={`/basic/${domain}/posts/page/1`}
+          >
+            全ての記事を見る
+          </Link>
+        </div>
       </div>
     </section>
   );

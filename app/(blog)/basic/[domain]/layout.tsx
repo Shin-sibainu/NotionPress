@@ -9,8 +9,8 @@ export default function BasicNotionBlogLayout({
 }>) {
   const domain = params.domain;
   return (
-    <div className="bg-background min-h-screen">
-      <div className="max-w-2xl mx-auto px-4">
+    <div className="bg-background">
+      <div className="max-w-2xl mx-auto px-4 min-h-screen flex flex-col">
         <BasicBlogHeader domain={domain} />
         <main>{children}</main>
       </div>

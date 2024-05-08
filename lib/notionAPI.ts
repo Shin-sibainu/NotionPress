@@ -7,7 +7,6 @@ import {
   PartialPageObjectResponse,
   QueryDatabaseResponse,
 } from "@notionhq/client/build/src/api-endpoints";
-import { format } from "date-fns";
 import { NotionToMarkdown } from "notion-to-md";
 
 //https://github.com/ymtdzzz/notion-blog-converter/blob/main/src/notion/client.ts
@@ -167,6 +166,25 @@ export const getNumberOfPages = async (notion: Client, notionId: string) => {
   );
 };
 
+//タグページにおけるそのタグがついている記事数をカウント
+export const getNumberOfPagesByTag = async (
+  notion: Client,
+  notionId: string,
+  tagName: string
+) => {
+  const NUMBER_OF_POSTS_PER_PAGE = 5;
+
+  const allPosts = await getAllPosts(notion, notionId);
+  const posts = allPosts.filter((post) =>
+    post.tags.find((tag: string) => tag === tagName)
+  );
+
+  return (
+    Math.floor(posts.length / NUMBER_OF_POSTS_PER_PAGE) +
+    (posts.length % NUMBER_OF_POSTS_PER_PAGE > 0 ? 1 : 0)
+  );
+};
+
 function isPageObjectResponse(
   res:
     | PageObjectResponse
@@ -204,7 +222,15 @@ function getTags(page: PageObjectResponse): string[] {
 }
 
 function getDate(page: PageObjectResponse): string {
-  return format(new Date(page.last_edited_time), "yyyy-MM-dd");
+  const dateProperty = page.properties["Date"];
+
+  // プロパティが存在し、タイプが 'date' であることを確認
+  if (dateProperty && dateProperty.type === "date" && dateProperty.date) {
+    return dateProperty.date.start; // 開始日を返す
+  } else {
+    console.warn("Date property is missing or not of type 'date'.");
+    return "No date provided"; // デフォルト値または適切な置換値を提供 // 日付プロパティが存在しない、または期待するタイプではない場合
+  }
 }
 
 function getSlug(page: PageObjectResponse): string {

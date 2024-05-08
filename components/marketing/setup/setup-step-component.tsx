@@ -17,13 +17,21 @@ export interface SetupData {
 
 export default function SetupStepComponent({ user }: { user: User | null }) {
   const defaultStepValue = user ? 2 : 1;
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(defaultStepValue);
   const [setupData, setSetupData] = useState<SetupData>({
-    siteDomain: "shincode_blog",
-    notionToken: "secret_uc7RDVzbGbIxkyStI2swlJejlAUsnQrPdEBz5hnYdfd",
-    notionId: "127ef6b3de6b408880c046925f5917c6",
-    templateId: 1,
+    siteDomain: "",
+    notionToken: "",
+    notionId: "",
+    templateId: 0,
   });
+
+  // const [step, setStep] = useState(5);
+  // const [setupData, setSetupData] = useState<SetupData>({
+  //   siteDomain: "shincode_blog",
+  //   notionToken: "secret_uc7RDVzbGbIxkyStI2swlJejlAUsnQrPdEBz5hnYdfd",
+  //   notionId: "127ef6b3de6b408880c046925f5917c6",
+  //   templateId: 1,
+  // });
 
   const updateSetupData = (newData: Partial<SetupData>) => {
     setSetupData((prevData) => ({ ...prevData, ...newData }));

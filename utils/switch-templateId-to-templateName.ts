@@ -1,4 +1,4 @@
-export const templateIdToTempalteName = (templateId: number) => {
+export const templateIdToTemplateName = (templateId: number) => {
   let templateName;
 
   switch (templateId) {

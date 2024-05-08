@@ -32,7 +32,7 @@ export default async function TagsPage({
           <div className="tag grid sm:grid-cols-2 md:grid-cols-3 gap-y-6 gap-x-3">
             {allTags?.map((tag) => (
               <Link
-                href={`tags/${tag}`}
+                href={`tags/${tag}/1`}
                 key={tag}
                 className="relative flex items-center gap-2 border rounded-l-2xl px-3 py-2 bg-orange-100 hover:bg-orange-200 duration-200 hover:border-orange-200"
               >

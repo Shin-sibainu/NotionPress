@@ -1,14 +1,12 @@
 import { Badge, badgeVariants } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
-import { templateIdToTempalteName } from "@/utils/switch-templateId-to-templateName";
+import { templateIdToTemplateName } from "@/utils/switch-templateId-to-templateName";
 import { SupabaseClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 import Link from "next/link";
+
+import BlogContentDetailSettings from "./BlogContentDetailSettings";
 
 const getTemplateId = async (supabase: SupabaseClient, domain: string) => {
   const { data: templateId } = await supabase
@@ -20,11 +18,32 @@ const getTemplateId = async (supabase: SupabaseClient, domain: string) => {
   return templateId?.template_id;
 };
 
+const getBlogDetailSettingData = async (
+  supabase: SupabaseClient,
+  userId: string | undefined
+) => {
+  const { data: blogDetailSettingData } = await supabase
+    .from("blog_meta_data")
+    .select("*")
+    .eq("id", userId)
+    .single();
+
+  return blogDetailSettingData;
+};
+
 export default async function BlogContentView({ domain }: { domain: string }) {
   const supabase = supabaseServer();
-  const templateId = await getTemplateId(supabase, domain);
 
-  const templateName = templateIdToTempalteName(templateId);
+  const { data: user } = await supabase.auth.getUser();
+  const userId = user.user?.id;
+
+  const templateId = await getTemplateId(supabase, domain);
+  const templateName = templateIdToTemplateName(templateId);
+
+  const blogDetailSettingData = await getBlogDetailSettingData(
+    supabase,
+    userId
+  );
 
   return (
     <div className="px-4">
@@ -80,59 +99,10 @@ export default async function BlogContentView({ domain }: { domain: string }) {
 
       <hr />
 
-      <div className="py-4">
-        <div className="space-y-2">
-          <span className="font-medium sm:text-xl text-lg">
-            Notionブログの基本設定
-          </span>
-
-          <div>
-            <Label className="font-normal">ブログ名</Label>
-            <Input placeholder="NotionPressのブログ" className="mt-1" />
-          </div>
-
-          <div>
-            <Label className="font-normal">自己紹介文</Label>
-            <Textarea
-              placeholder="こんにちは。ShinCodeです。WebエンジニアとしてNotionでブログ執筆活動をしています。"
-              className="mt-1"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="py-8">
-        <div className="space-y-3">
-          <span className="font-medium sm:text-xl text-lg">
-            ブログの詳細カスタマイズ
-          </span>
-
-          <div>
-            <Label className="font-normal">XアカウントID</Label>
-            <Input placeholder="Shin_Engineer" className="mt-1" />
-          </div>
-
-          <div>
-            <Label className="font-normal">あなたのウェブサイト</Label>
-            <Input placeholder="https://xxx.com" className="mt-1" />
-          </div>
-        </div>
-      </div>
-
-      <div className="py-8">
-        <div className="space-y-3">
-          <span className="font-medium sm:text-xl text-lg">ブログの収益化</span>
-
-          <div>
-            <Label className="font-normal">Googleアドセンスコード ?</Label>
-            <Input placeholder="xxxxxxxxxxxx" className="mt-1" />
-          </div>
-        </div>
-      </div>
-
-      <button className={cn(buttonVariants({ variant: "default" }))}>
-        保存する
-      </button>
+      <BlogContentDetailSettings
+        userId={userId}
+        blogDetailSettingData={blogDetailSettingData}
+      />
     </div>
   );
 }

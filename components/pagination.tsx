@@ -20,7 +20,6 @@ export function PaginationComponent({
 }) {
   let pages: number[] = [];
   const maxPagesToShow = 2; // 現在のページの前後に表示するページ数
-
   // ページ範囲を計算
   let startPage = Math.max(1, currentPageNumber - maxPagesToShow);
   let endPage = Math.min(numberOfPages, currentPageNumber + maxPagesToShow);

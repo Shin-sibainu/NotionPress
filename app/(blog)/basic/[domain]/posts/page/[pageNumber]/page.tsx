@@ -30,7 +30,7 @@ export default async function BasicNotionBlogPostsListByPageNumber({
   )) as number;
 
   return (
-    <div className="py-7">
+    <div className="py-7 flex flex-col h-full">
       <div className="space-y-4">
         <span className="font-bold text-xl text-muted-foreground">
           ブログ一覧
@@ -49,7 +49,7 @@ export default async function BasicNotionBlogPostsListByPageNumber({
         </div>
       )}
 
-      <div className="py-8">
+      <div className="py-12 mt-auto">
         <PaginationComponent
           numberOfPages={numberOfPages}
           tag={""}
