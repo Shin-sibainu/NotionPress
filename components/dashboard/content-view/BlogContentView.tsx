@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import BlogContentDetailSettings from "./BlogContentDetailSettings";
+import { redirect } from "next/navigation";
 
 const getTemplateId = async (supabase: SupabaseClient, domain: string) => {
   const { data: templateId } = await supabase
@@ -36,6 +37,10 @@ export default async function BlogContentView({ domain }: { domain: string }) {
 
   const { data: user } = await supabase.auth.getUser();
   const userId = user.user?.id;
+
+  if (!userId) {
+    redirect("/");
+  }
 
   const templateId = await getTemplateId(supabase, domain);
   const templateName = templateIdToTemplateName(templateId);

@@ -23,6 +23,7 @@ import {
   Twitter,
   User,
   X,
+  Link2,
 } from "lucide-react";
 
 export const Icons = {
@@ -46,6 +47,7 @@ export const Icons = {
   pizza: Pizza,
   sun: SunMedium,
   moon: Moon,
+  link: Link2,
   laptop: Laptop,
   gitHub: ({ ...props }) => (
     <svg
@@ -65,5 +67,6 @@ export const Icons = {
     </svg>
   ),
   X: X,
+  twitter: Twitter,
   check: Check,
 };

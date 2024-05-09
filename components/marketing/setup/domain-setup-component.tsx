@@ -25,8 +25,7 @@ export default function DomainSetupComponent({
     }
     setError("");
 
-    //ドメインが利用できるかチェックできる関数が欲しい。
-
+    //TODO:ドメインが利用できるかチェックできる関数が欲しい。
     onSuccess();
   };
 

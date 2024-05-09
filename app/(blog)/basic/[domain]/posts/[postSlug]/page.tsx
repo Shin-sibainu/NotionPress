@@ -50,7 +50,7 @@ export default async function BasicNotionBlogDetailPage({
   } = detailPost?.metadata!;
 
   return (
-    <section className="py-5 mb-1">
+    <section className="py-5 mb-5">
       <h2 className="w-full text-3xl font-medium">{detailPostTitle}</h2>
       <div className="border-b-2 w-1/3 mt-1 border-sky-900"></div>
       <span className="text-muted-foreground">公開日 {detailPostDate}</span>

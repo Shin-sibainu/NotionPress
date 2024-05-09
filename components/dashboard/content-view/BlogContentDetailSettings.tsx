@@ -106,9 +106,9 @@ export default function BlogContentDetailSettings({
           </span>
 
           <div>
-            <Label className="font-normal">XアカウントID</Label>
+            <Label className="font-normal">Xアカウントリンク</Label>
             <Input
-              placeholder="Shin_Engineer"
+              placeholder="https://twitter.com/notionpress"
               className="mt-1"
               {...register("x_id")}
             />

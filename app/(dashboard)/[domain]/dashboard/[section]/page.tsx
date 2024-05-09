@@ -2,15 +2,23 @@ import AccountContentView from "@/components/dashboard/content-view/AccountConte
 import BlogContentView from "@/components/dashboard/content-view/BlogContentView";
 import HowToWriteBlogWithNotion from "@/components/dashboard/content-view/HowToWriteBlogWithNotion";
 import Sidebar from "@/components/dashboard/sidebar";
-import { notFound } from "next/navigation";
+import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
+import { notFound, redirect } from "next/navigation";
 
-export default function DashBoardPage({
+export default async function DashBoardPage({
   params,
 }: {
   params: { domain: string; section: string };
 }) {
   const domain = params.domain;
   const section = params.section;
+  const supabase = supabaseServer();
+
+  const { data } = await supabase.auth.getUser();
+
+  if (!data.user) {
+    redirect("/");
+  }
 
   const renderSection = () => {
     switch (section) {

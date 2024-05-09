@@ -5,6 +5,7 @@ import Link from "next/link";
 import { getNotionHomePagePosts } from "@/utils/notion/getNotionData";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
+import { getUserIdFromDomain } from "@/utils/blog/supabaseDataFetch";
 
 interface BasicNotionBlogProps {
   domain: string;
@@ -40,27 +41,29 @@ export default async function BasicNotionBlog({
 
   const supabase = supabaseServer();
 
-  const { data: user } = await supabase.auth.getUser();
-  const userId = user.user?.id;
+  const userId = await getUserIdFromDomain(supabase, domain);
+  if (!userId) {
+    return <p>User not found</p>;
+  }
 
   const blogDetailSettingData = await getBlogDetailSettingData(
     supabase,
     userId
   );
 
-  const {
-    name: blogName,
-    bio,
-    x_id,
-    website,
-    google_adsense,
-  } = blogDetailSettingData;
+  if (!blogDetailSettingData) {
+    return <p>Blog details not found</p>;
+  }
+
+  const { name: blogName, bio } = blogDetailSettingData;
 
   return (
     <div className="flex flex-col py-2 h-full">
       <div className="flex flex-col">
         <Avatar className="mx-auto w-20 h-20">
-          <AvatarImage src={user_profile_image_url} alt="profile_icon" />
+          <Link href={`/${domain}/dashboard/blog`} className="w-full">
+            <AvatarImage src={user_profile_image_url} alt="profile_icon" />
+          </Link>
           <AvatarFallback>{""}</AvatarFallback>
         </Avatar>
         <div className="mt-1">

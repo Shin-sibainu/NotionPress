@@ -1,4 +1,6 @@
+import BasicBlogFooter from "@/components/blog/basic/BasicBlogFooter";
 import BasicBlogHeader from "@/components/blog/basic/BasicBlogHeader";
+import { ThemeProvider } from "@/components/blog/basic/ThemeProvider";
 
 export default function BasicNotionBlogLayout({
   children,
@@ -9,11 +11,19 @@ export default function BasicNotionBlogLayout({
 }>) {
   const domain = params.domain;
   return (
-    <div className="bg-background">
-      <div className="max-w-2xl mx-auto px-4 min-h-screen flex flex-col">
-        <BasicBlogHeader domain={domain} />
-        <main>{children}</main>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <div className="bg-background h-screen flex flex-col max-w-2xl mx-auto">
+        <div className="px-4 flex-grow">
+          <BasicBlogHeader domain={domain} />
+          <main>{children}</main>
+        </div>
+        <BasicBlogFooter domain={domain} />
       </div>
-    </div>
+    </ThemeProvider>
   );
 }
