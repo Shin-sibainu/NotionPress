@@ -84,7 +84,7 @@ export default async function BasicNotionBlogDetailPage({
         >
           {detailPost?.markdown}
         </ReactMarkdown> */}
-          <article className="prose prose-xl prose- prose-a:text-blue-600 hover:prose-a:text-blue-500">
+          <article className="prose prose-xl prose- prose-a:text-blue-600 hover:prose-a:text-blue-500 text-foreground">
             <ReactMarkdown>{detailPost?.markdown}</ReactMarkdown>
           </article>
         </div>

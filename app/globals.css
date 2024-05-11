@@ -73,4 +73,19 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .dark {
+    h2,
+    h3,
+    h4,
+    h5,
+    p,
+    code,
+    strong,
+    blockquote {
+      color: var(
+        --foreground
+      ); /* ダークモード時のフォアグラウンドカラーに設定 */
+    }
+  }
 }

@@ -18,11 +18,18 @@ export default function DomainSetupComponent({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    updateData({ siteDomain: domain });
     if (domain === "") {
       setError("URLを記入してください。");
       return;
     }
+    if (!/^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$/.test(domain)) {
+      setError(
+        "ドメイン名は英数字とハイフンのみで、先頭と末尾は英数字にしてください。"
+      );
+      return;
+    }
+
+    updateData({ siteDomain: domain });
     setError("");
 
     //TODO:ドメインが利用できるかチェックできる関数が欲しい。

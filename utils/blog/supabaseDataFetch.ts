@@ -8,7 +8,8 @@ export default async function getUserAllData(
     const { data, error } = await supabase
       .from("users")
       .select("*")
-      .eq("id", userId);
+      .eq("id", userId)
+      .single();
 
     return data;
   } catch (err) {

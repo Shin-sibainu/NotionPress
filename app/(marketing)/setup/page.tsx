@@ -10,11 +10,14 @@ export default async function SetupPage() {
   const user = data.user;
   const userId = data.user?.id!;
 
-  const userAllData = await getUserAllData(supabase, userId);
-  const { domain } = userAllData![0];
+  if (user) {
+    const userAllData = await getUserAllData(supabase, userId);
 
-  if (domain) {
-    redirect(`/${domain}/dashboard/blog`);
+    const { domain } = userAllData!;
+
+    if (domain) {
+      redirect(`/${domain}/dashboard/blog`);
+    }
   }
 
   return (

@@ -49,7 +49,7 @@ export default async function BasicNotionBlogPostsListByPageNumber({
         </div>
       )}
 
-      <div className="py-12 mt-auto">
+      <div className="py-10 mt-auto">
         <PaginationComponent
           numberOfPages={numberOfPages}
           tag={""}

@@ -7,6 +7,9 @@ export const blogSettingsFormSchema = z.object({
   bio: z
     .string()
     .max(250, { message: "自己紹介文は250文字以内で入力してください。" }),
+  author: z
+    .string()
+    .max(10, { message: "執筆者名は10文字以内で入力してください。" }),
   x_id: z.string(),
   website: z.string(),
   google_adsense: z.string(),

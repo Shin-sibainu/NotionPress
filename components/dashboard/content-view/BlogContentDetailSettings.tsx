@@ -33,11 +33,11 @@ export default function BlogContentDetailSettings({
   });
 
   const BlogMetaDataUpdate = async (data: BlogSettingsFormSchemaType) => {
-    const { name, bio, x_id, website, google_adsense } = data;
+    const { name, bio, author, x_id, website, google_adsense } = data;
     try {
       const { error } = await supabaseClient
         .from("blog_meta_data")
-        .update({ name, bio, x_id, website, google_adsense })
+        .update({ name, bio, author, x_id, website, google_adsense })
         .eq("id", userId!);
       if (error) throw error;
     } catch (err) {
@@ -93,6 +93,20 @@ export default function BlogContentDetailSettings({
             {errors.bio && (
               <span className="inline-block text-red-500 font-medium mt-1">
                 {errors.bio.message}
+              </span>
+            )}
+          </div>
+
+          <div>
+            <Label className="font-normal">ブログ執筆者名</Label>
+            <Input
+              placeholder="山田太郎"
+              className="mt-1"
+              {...register("author")}
+            />
+            {errors.author && (
+              <span className="inline-block text-red-500 font-medium mt-1">
+                {errors.author.message}
               </span>
             )}
           </div>

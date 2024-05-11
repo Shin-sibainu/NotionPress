@@ -17,7 +17,7 @@ export default function BasicNotionBlogLayout({
       enableSystem
       disableTransitionOnChange
     >
-      <div className="bg-background h-screen flex flex-col max-w-2xl mx-auto">
+      <div className="bg-background h-[61rem] flex flex-col max-w-2xl mx-auto">
         <div className="px-4 flex-grow">
           <BasicBlogHeader domain={domain} />
           <main>{children}</main>
