@@ -15,8 +15,9 @@ export default async function DashBoardPage({
   const supabase = supabaseServer();
 
   const { data } = await supabase.auth.getUser();
+  const user = data.user;
 
-  if (!data.user) {
+  if (!user) {
     redirect("/");
   }
 
@@ -25,7 +26,7 @@ export default async function DashBoardPage({
       case "blog":
         return <BlogContentView domain={domain} />;
       case "how-to-write-blog-with-notion":
-        return <HowToWriteBlogWithNotion />;
+        return <HowToWriteBlogWithNotion user={user} />;
       case "account":
         return <AccountContentView />;
       default:

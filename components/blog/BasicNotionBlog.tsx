@@ -61,9 +61,7 @@ export default async function BasicNotionBlog({
     <div className="flex flex-col py-2 h-full">
       <div className="flex flex-col">
         <Avatar className="mx-auto w-20 h-20">
-          <Link href={`/${domain}/dashboard/blog`} className="w-full">
-            <AvatarImage src={user_profile_image_url} alt="profile_icon" />
-          </Link>
+          <AvatarImage src={user_profile_image_url} alt="profile_icon" />
           <AvatarFallback>{""}</AvatarFallback>
         </Avatar>
         <div className="mt-1">

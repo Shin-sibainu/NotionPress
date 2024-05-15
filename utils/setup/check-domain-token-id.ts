@@ -1,4 +1,4 @@
-export const validateDomain = () => {};
+import { supabaseClient } from "../supabase/ssr/supabaseClientInit";
 
 export const validateNotionTokenCredentials = async (
   integrationToken: string
@@ -57,5 +57,25 @@ export const validateNotionIdredentials = async (
       isValid: data.isValid,
       message: data.message,
     };
+  }
+};
+
+export const checkIsDomainValid = async (domain: string) => {
+  try {
+    const { data, error } = await supabaseClient
+      .from("users")
+      .select("domain")
+      .eq("domain", domain)
+      .maybeSingle();
+
+    console.log(data);
+
+    if (error) {
+      throw error;
+    }
+
+    return data === null;
+  } catch (err) {
+    return false;
   }
 };

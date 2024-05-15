@@ -24,6 +24,7 @@ import {
   User,
   X,
   Link2,
+  Newspaper,
 } from "lucide-react";
 
 export const Icons = {
@@ -48,6 +49,7 @@ export const Icons = {
   sun: SunMedium,
   moon: Moon,
   link: Link2,
+  article: Newspaper,
   laptop: Laptop,
   gitHub: ({ ...props }) => (
     <svg

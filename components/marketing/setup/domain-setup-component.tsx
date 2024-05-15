@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { checkIsDomainValid } from "@/utils/setup/check-domain-token-id";
 import { useState } from "react";
 
 export default function DomainSetupComponent({
@@ -16,7 +17,7 @@ export default function DomainSetupComponent({
   const [domain, setDomain] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (domain === "") {
       setError("URLを記入してください。");
@@ -26,6 +27,13 @@ export default function DomainSetupComponent({
       setError(
         "ドメイン名は英数字とハイフンのみで、先頭と末尾は英数字にしてください。"
       );
+      return;
+    }
+
+    const response = await checkIsDomainValid(domain);
+
+    if (!response) {
+      setError("そのドメインは既に利用されています。");
       return;
     }
 

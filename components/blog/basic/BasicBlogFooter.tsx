@@ -41,7 +41,17 @@ const BasicBlogFooter = async ({ domain }: { domain: string }) => {
           </li>
         </ul>
         <div>
-          <p className="text-sm text-muted-foreground">Authored By {author}</p>
+          <p className="text-sm text-muted-foreground">
+            Authored By {author}.{" "}
+            {userId && (
+              <Link
+                href={`/${domain}/dashboard/blog`}
+                className="w-full text-sm underline underline-offset-2"
+              >
+                管理者ページへ
+              </Link>
+            )}
+          </p>
         </div>
       </div>
     </footer>
