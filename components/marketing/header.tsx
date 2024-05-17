@@ -21,13 +21,7 @@ export default async function Header() {
           </Link>
           <nav className="flex items-center gap-4">
             <Link
-              href={"#feature"}
-              className="hover:text-muted-foreground/70 sm:text-sm leading-normal pt-1"
-            >
-              特徴
-            </Link>
-            <Link
-              href={"/template"}
+              href={"/blog/templates"}
               className="hover:text-muted-foreground/70 sm:text-sm pt-1"
             >
               サンプル

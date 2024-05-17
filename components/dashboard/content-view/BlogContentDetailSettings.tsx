@@ -13,6 +13,9 @@ import {
 } from "@/lib/validations/blogSettings";
 import { supabaseClient } from "@/utils/supabase/ssr/supabaseClientInit";
 import { toast } from "@/components/ui/use-toast";
+import { useState } from "react";
+
+//https://github.com/Shin-sibainu/mail-form-for-shincode-camp/blob/main/components/MailForm.tsx
 
 export default function BlogContentDetailSettings({
   userId,
@@ -32,6 +35,8 @@ export default function BlogContentDetailSettings({
     defaultValues: { name, bio, x_id, website, google_adsense },
   });
 
+  const [profileImageError, setProfileImageError] = useState<string>("");
+
   const BlogMetaDataUpdate = async (data: BlogSettingsFormSchemaType) => {
     const { name, bio, author, x_id, website, google_adsense } = data;
     try {
@@ -45,9 +50,73 @@ export default function BlogContentDetailSettings({
     }
   };
 
+  const UploadProfileImageAndUpdateUser = async (
+    file: File,
+    userId: string
+  ) => {
+    if (!file) {
+      return "ファイルが選択されていません。";
+    }
+
+    const allowedTypes = ["image/png", "image/jpeg"];
+    const maxSize = 2 * 1024 * 1024; // 2MB
+
+    if (!allowedTypes.includes(file.type)) {
+      return "PNGまたはJPG形式のファイルを選択してください";
+    }
+
+    if (file.size > maxSize) {
+      return "ファイルサイズは2MB以下にしてください";
+    }
+
+    const filePath = `profile-images/${userId}/${new Date().getTime()}-${
+      file.name
+    }`;
+    const { error: uploadError } = await supabaseClient.storage
+      .from("profile_image_bucket")
+      .upload(filePath, file);
+
+    if (uploadError) {
+      console.error(uploadError);
+      return "ファイルのアップロードに失敗しました。";
+    }
+
+    // imageURLの取得
+    const { data: imageUrl } = supabaseClient.storage
+      .from("profile_image_bucket")
+      .getPublicUrl(filePath);
+
+    // ユーザーテーブルを更新するためにpublicURLを使用
+    const { error: updateError } = await supabaseClient
+      .from("users")
+      .update({ user_profile_image_url: imageUrl.publicUrl })
+      .eq("id", userId);
+
+    if (updateError) {
+      console.error(updateError);
+      return "プロフィール画像の更新に失敗しました。";
+    }
+
+    return null;
+  };
+
   const onSubmit = async (data: BlogSettingsFormSchemaType) => {
     try {
       await BlogMetaDataUpdate(data);
+
+      if (data.profileImage && data.profileImage[0]) {
+        const errorMessage = await UploadProfileImageAndUpdateUser(
+          data.profileImage[0],
+          userId!
+        );
+        if (errorMessage) {
+          setProfileImageError(errorMessage);
+          return toast({
+            title: errorMessage,
+            variant: "destructive",
+          });
+        }
+      }
 
       return toast({
         title: "ブログの更新に成功しました🚀",
@@ -107,6 +176,21 @@ export default function BlogContentDetailSettings({
             {errors.author && (
               <span className="inline-block text-red-500 font-medium mt-1">
                 {errors.author.message}
+              </span>
+            )}
+          </div>
+
+          <div>
+            <Label className="font-normal">プロフィール画像</Label>
+            <Input
+              className="mt-1"
+              {...register("profileImage")}
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
+            />
+            {profileImageError && (
+              <span className="inline-block text-red-500 font-medium mt-1">
+                {profileImageError}
               </span>
             )}
           </div>

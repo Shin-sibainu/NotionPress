@@ -39,10 +39,22 @@ const BasicBlogFooter = async ({ domain }: { domain: string }) => {
               <Icons.link />
             </Link>
           </li>
+          <li>
+            Powered by{" "}
+            <Link
+              href={"/"}
+              className="mr-1 underline underline-offset-2 text-sm text-muted-foreground"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NotionPress
+            </Link>
+          </li>
         </ul>
         <div>
           <p className="text-sm text-muted-foreground">
-            Authored By {author}.{" "}
+            {/* Authored By {author}.{" "} */}
+
             {userId && (
               <Link
                 href={`/${domain}/dashboard/blog`}

@@ -1,3 +1,4 @@
+import Footer from "@/components/marketing/footer";
 import Header from "@/components/marketing/header";
 
 export default function MarketingLayout({
@@ -9,7 +10,7 @@ export default function MarketingLayout({
     <div>
       <Header />
       <main>{children}</main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

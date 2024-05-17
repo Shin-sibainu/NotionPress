@@ -1,6 +1,7 @@
 import { buttonVariants } from "@/components/ui/button";
 import { Icons } from "@/lib/Icons";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function IndexPage() {
@@ -24,7 +25,7 @@ export default function IndexPage() {
               はじめる
             </Link>
             <Link
-              href={"/"}
+              href={"/blog/templates"}
               className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
             >
               サンプル
@@ -49,7 +50,7 @@ export default function IndexPage() {
 
               <div className="grid gap-4 sm:grid-cols-2 md:gap-8 xl:grid-cols-3">
                 <div className="flex divide-x rounded-lg border bg-gray-50">
-                  <div className="flex items-center p-2 text-indigo-500 md:p-4">
+                  <div className="flex items-center p-2 md:p-4">
                     <Icons.article />
                   </div>
 
@@ -63,7 +64,7 @@ export default function IndexPage() {
                   </div>
                 </div>
                 <div className="flex divide-x rounded-lg border bg-gray-50">
-                  <div className="flex items-center p-2 text-indigo-500 md:p-4">
+                  <div className="flex items-center p-2 md:p-4">
                     <Icons.check />
                   </div>
                   <div className="p-4 md:p-6 flex flex-col justify-center">
@@ -77,7 +78,7 @@ export default function IndexPage() {
                 </div>
 
                 <div className="flex divide-x rounded-lg border bg-gray-50">
-                  <div className="flex items-center p-2 text-indigo-500 md:p-4">
+                  <div className="flex items-center p-2 md:p-4">
                     <Icons.media />
                   </div>
                   <div className="p-4 md:p-6 flex flex-col justify-center">
@@ -91,7 +92,7 @@ export default function IndexPage() {
                 </div>
 
                 <div className="flex divide-x rounded-lg border bg-gray-50">
-                  <div className="flex items-center p-2 text-indigo-500 md:p-4">
+                  <div className="flex items-center p-2 md:p-4">
                     <Icons.billing />
                   </div>
                   <div className="p-4 md:p-6 flex flex-col justify-center">
@@ -105,7 +106,7 @@ export default function IndexPage() {
                 </div>
 
                 <div className="flex divide-x rounded-lg border bg-gray-50">
-                  <div className="flex items-center p-2 text-indigo-500 md:p-4">
+                  <div className="flex items-center p-2 md:p-4">
                     <Icons.pizza />
                   </div>
                   <div className="p-4 md:p-6 flex flex-col justify-center">
@@ -119,7 +120,7 @@ export default function IndexPage() {
                 </div>
 
                 <div className="flex divide-x rounded-lg border bg-gray-50">
-                  <div className="flex items-center p-2 text-indigo-500 md:p-4">
+                  <div className="flex items-center p-2 md:p-4">
                     <Icons.trash />
                   </div>
                   <div className="p-4 md:p-6 flex flex-col justify-center">
@@ -133,6 +134,66 @@ export default function IndexPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-6 sm:py-8 lg:py-24">
+        <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
+          <div className="mb-10 md:mb-16">
+            <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-5xl">
+              ブログテンプレート
+            </h2>
+
+            <p className="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">
+              テンプレートを選んで、すぐにNotionブログ運用ができます。テンプレートは随時追加しています。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:gap-6 xl:gap-8">
+            <Link
+              href={"/blog/templates"}
+              className="group relative flex h-48 items-end justify-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-96"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Image
+                src={"/images/blog/blog-post-1.jpg"}
+                loading="lazy"
+                alt="ベーシックブログテンプレート"
+                className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
+                width={400}
+                height={500}
+              />
+
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
+
+              <span className="relative mr-3 mb-3 inline-block rounded-lg border border-gray-500 px-2 py-1 text-xs text-gray-200 backdrop-blur md:px-3 md:text-sm">
+                ベーシック
+              </span>
+            </Link>
+
+            <Link
+              href={"/blog/templates"}
+              className="group relative flex h-48 items-end justify-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-96"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Image
+                src={"/images/blog/blog-post-2.jpg"}
+                loading="lazy"
+                alt="クラシックブログテンプレート"
+                className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
+                width={400}
+                height={500}
+              />
+
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
+
+              <span className="relative mr-3 mb-3 inline-block rounded-lg border border-gray-500 px-2 py-1 text-xs text-gray-200 backdrop-blur md:px-3 md:text-sm">
+                クラシック
+              </span>
+            </Link>
           </div>
         </div>
       </section>
