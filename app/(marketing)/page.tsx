@@ -8,10 +8,19 @@ export default function IndexPage() {
   return (
     <div>
       <section className="container">
-        <div className="mx-auto text-center md:py-48 space-y-4 py-20">
-          <h1 className="lg:text-9xl md:text-8xl sm:text-7xl text-5xl font-extrabold tracking-tighter">
-            NotionPress🚀
-          </h1>
+        <div className="mx-auto text-center md:py-10 space-y-4 py-20">
+          <div className="flex gap-2 justify-center flex-col items-center">
+            {/* <Image
+              src={"/images/notionpress-logo-mod.png"}
+              width={130}
+              height={130}
+              alt="NotionPress_Logo"
+              className="mt-1"
+            /> */}
+            <h1 className="lg:text-9xl md:text-8xl sm:text-7xl text-5xl font-extrabold tracking-tighter">
+              NotionPress
+            </h1>
+          </div>
           <div className="text-muted-foreground md:text-xl">
             <p>
               Notionを利用して誰でも簡単にブログ投稿ができるWebサービスです。

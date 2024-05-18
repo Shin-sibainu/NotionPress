@@ -14,6 +14,10 @@ import {
 import { supabaseClient } from "@/utils/supabase/ssr/supabaseClientInit";
 import { toast } from "@/components/ui/use-toast";
 import { useState } from "react";
+import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Icons } from "@/lib/Icons";
+import { useRouter } from "next/navigation";
 
 //https://github.com/Shin-sibainu/mail-form-for-shincode-camp/blob/main/components/MailForm.tsx
 
@@ -24,7 +28,8 @@ export default function BlogContentDetailSettings({
   userId: string | undefined;
   blogDetailSettingData: any;
 }) {
-  const { name, bio, x_id, website, google_adsense } = blogDetailSettingData;
+  const { name, bio, x_id, website, google_adsense, user_profile_image_url } =
+    blogDetailSettingData;
 
   const {
     register,
@@ -35,7 +40,9 @@ export default function BlogContentDetailSettings({
     defaultValues: { name, bio, x_id, website, google_adsense },
   });
 
+  const router = useRouter();
   const [profileImageError, setProfileImageError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const BlogMetaDataUpdate = async (data: BlogSettingsFormSchemaType) => {
     const { name, bio, author, x_id, website, google_adsense } = data;
@@ -78,15 +85,14 @@ export default function BlogContentDetailSettings({
 
     if (uploadError) {
       console.error(uploadError);
+      setIsLoading(false);
       return "ファイルのアップロードに失敗しました。";
     }
 
-    // imageURLの取得
     const { data: imageUrl } = supabaseClient.storage
       .from("profile_image_bucket")
       .getPublicUrl(filePath);
 
-    // ユーザーテーブルを更新するためにpublicURLを使用
     const { error: updateError } = await supabaseClient
       .from("users")
       .update({ user_profile_image_url: imageUrl.publicUrl })
@@ -94,6 +100,7 @@ export default function BlogContentDetailSettings({
 
     if (updateError) {
       console.error(updateError);
+      setIsLoading(false);
       return "プロフィール画像の更新に失敗しました。";
     }
 
@@ -102,6 +109,7 @@ export default function BlogContentDetailSettings({
 
   const onSubmit = async (data: BlogSettingsFormSchemaType) => {
     try {
+      setIsLoading(true);
       await BlogMetaDataUpdate(data);
 
       if (data.profileImage && data.profileImage[0]) {
@@ -118,10 +126,14 @@ export default function BlogContentDetailSettings({
         }
       }
 
+      setIsLoading(false);
+      router.refresh();
+
       return toast({
         title: "ブログの更新に成功しました🚀",
       });
     } catch (err) {
+      setIsLoading(false);
       return toast({
         title: "更新に失敗しました。",
         description: "もう一度お確かめください。",
@@ -180,14 +192,21 @@ export default function BlogContentDetailSettings({
             )}
           </div>
 
-          <div>
-            <Label className="font-normal">プロフィール画像</Label>
-            <Input
-              className="mt-1"
-              {...register("profileImage")}
-              type="file"
-              accept="image/png, image/jpeg, image/jpg"
-            />
+          <div className="pt-1 block">
+            <Avatar className="border shadow w-14 h-14">
+              <AvatarImage src={user_profile_image_url} alt="profile_icon" />
+              <AvatarFallback>{name}</AvatarFallback>
+            </Avatar>
+
+            <div>
+              <Label className="font-normal">プロフィール画像</Label>
+              <Input
+                className="mt-1 cursor-pointer"
+                {...register("profileImage")}
+                type="file"
+                accept="image/png, image/jpeg, image/jpg"
+              />
+            </div>
             {profileImageError && (
               <span className="inline-block text-red-500 font-medium mt-1">
                 {profileImageError}
@@ -256,8 +275,13 @@ export default function BlogContentDetailSettings({
       <button
         type="submit"
         className={cn(buttonVariants({ variant: "default" }))}
+        disabled={isLoading}
       >
-        保存する
+        {isLoading ? (
+          <Icons.spinner className="w-4 h-4 animate-spin" />
+        ) : (
+          "保存する"
+        )}
       </button>
     </form>
   );

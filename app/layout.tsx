@@ -3,13 +3,39 @@ import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
+import { siteConfig } from "@/config/site";
 
 const NotoSansJP = Noto_Sans_JP({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Notion Press",
-  description:
-    "NotionをCMSにして誰でも簡単にブログ投稿ができるWebサービスです。",
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: ["Notion", "NotionPress", "Blog"],
+  authors: [
+    {
+      name: "shincode",
+      url: siteConfig.links.twitter,
+    },
+  ],
+  creator: "shincode",
+  openGraph: {
+    type: "website",
+    locale: "ja",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [`${siteConfig.url}/og.jpg`],
+    creator: "@shincode",
+  },
 };
 
 export default function RootLayout({

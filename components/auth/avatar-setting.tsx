@@ -1,7 +1,7 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -13,43 +13,39 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { User } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
+import { templateIdToTemplateName } from "@/utils/switch-templateId-to-templateName";
 
 export default function AvatarSetting({
   user,
   userData,
 }: {
   user: User | null;
-  userData: { domain: string; template_id: number } | null;
+  userData: {
+    domain: string;
+    template_id: number;
+    user_profile_image_url: string;
+  } | null;
 }) {
   const supabase = createClientComponentClient();
   const router = useRouter();
 
-  let blogTemplateName;
-  const domain = userData?.domain;
-  const templateId = userData?.template_id;
+  const { domain, template_id, user_profile_image_url } = userData!;
 
-  switch (templateId) {
-    case 1:
-      blogTemplateName = "basic";
-      break;
-    case 2:
-      blogTemplateName = "classic";
-      break;
-  }
+  let blogTemplateName = templateIdToTemplateName(template_id);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     router.refresh();
   };
 
+  let profileImageUrlChange =
+    domain === null ? user?.user_metadata.picture : user_profile_image_url;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarImage
-            src={user?.user_metadata.avatar_url}
-            alt="profile_icon"
-          />
+          <AvatarImage src={profileImageUrlChange} alt="profile_icon" />
           <AvatarFallback>{user?.user_metadata.name}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -64,7 +60,9 @@ export default function AvatarSetting({
             ダッシュボード
           </Link>
           <Link
-            href={`/${blogTemplateName}/${domain}`}
+            href={
+              blogTemplateName ? `/${blogTemplateName}/${domain}` : "/setup"
+            }
             className="block w-full text-left px-2 py-1 hover:bg-gray-100 rounded-md"
           >
             公開中のブログ

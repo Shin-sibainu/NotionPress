@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { User } from "@supabase/supabase-js";
-import { getUserDomainAndTemplateIdData } from "@/utils/supabase/auth-helpers/getUserData";
+import { getDomainAndTemplateIdAndProfileImageUrl } from "@/utils/supabase/auth-helpers/getUserData";
 import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
 import { templateIdToTemplateName } from "@/utils/switch-templateId-to-templateName";
 import Link from "next/link";
@@ -13,7 +13,10 @@ export default async function HowToWriteBlogWithNotion({
 }) {
   const userId = user.id;
   const supabase = supabaseServer();
-  const userData = await getUserDomainAndTemplateIdData(supabase, userId);
+  const userData = await getDomainAndTemplateIdAndProfileImageUrl(
+    supabase,
+    userId
+  );
   const domain = userData?.domain;
   const blogTemplatePlan = templateIdToTemplateName(userData?.template_id);
 

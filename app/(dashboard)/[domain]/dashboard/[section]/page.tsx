@@ -17,8 +17,12 @@ export default async function DashBoardPage({
   const { data } = await supabase.auth.getUser();
   const user = data.user;
 
+  if (domain === "null" || domain === "undefined") {
+    redirect("/setup");
+  }
+
   if (!user) {
-    redirect("/");
+    redirect("/setup");
   }
 
   const renderSection = () => {

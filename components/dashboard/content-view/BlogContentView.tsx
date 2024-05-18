@@ -29,6 +29,18 @@ const getBlogDetailSettingData = async (
     .eq("id", userId)
     .single();
 
+  const { data: userProfile } = await supabase
+    .from("users")
+    .select("user_profile_image_url")
+    .eq("id", userId)
+    .single();
+
+  // userProfileから取得したプロファイル画像のURLをblogDetailSettingDataに追加
+  if (blogDetailSettingData && userProfile) {
+    blogDetailSettingData.user_profile_image_url =
+      userProfile.user_profile_image_url;
+  }
+
   return blogDetailSettingData;
 };
 

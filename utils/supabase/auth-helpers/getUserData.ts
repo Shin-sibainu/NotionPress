@@ -17,13 +17,13 @@ export const getUserAllData = async (domain: string) => {
 };
 
 //auth-helpers
-export const getUserDomainAndTemplateIdData = async (
+export const getDomainAndTemplateIdAndProfileImageUrl = async (
   supabase: SupabaseClient,
   id: string
 ) => {
   const { data: userData } = await supabase
     .from("users")
-    .select("domain, template_id")
+    .select("domain, template_id, user_profile_image_url")
     .eq("id", id)
     .single();
 
