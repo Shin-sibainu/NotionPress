@@ -5,6 +5,19 @@ import {
   getPostsByTagAndPageData,
 } from "@/utils/notion/getNotionData";
 import { getUserAllData } from "@/utils/supabase/auth-helpers/getUserData";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { tag: string; domain: string };
+}): Promise<Metadata> {
+  const tag = params.tag;
+
+  return {
+    title: `${tag}タグ一覧`,
+  };
+}
 
 export default async function TagToBlogListPage({
   params,

@@ -2,7 +2,7 @@ import Header from "@/components/marketing/header";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ダッシュボード",
+  title: "ダッシュボード | NotionPress",
 };
 
 export default function DashBoardLayout({

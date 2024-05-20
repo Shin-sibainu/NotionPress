@@ -5,6 +5,11 @@ import {
   getPostsByPageData,
 } from "@/utils/notion/getNotionData";
 import { getUserAllData } from "@/utils/supabase/auth-helpers/getUserData";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "ブログ一覧",
+};
 
 export default async function BasicNotionBlogPostsListByPageNumber({
   params,

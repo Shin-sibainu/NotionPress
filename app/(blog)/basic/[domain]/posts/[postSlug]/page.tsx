@@ -20,10 +20,54 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { Metadata } from "next";
 
 // https://github.com/Shin-sibainu/notion-blog-udemy/blob/main/lib/notionAPI.ts
 // https://www.newt.so/docs/tutorials/generate-anchor-links-using-react-markdown
 // https://github.com/Shin-sibainu/notion-blog-udemy/blob/main/pages/posts/%5Bslug%5D.tsx
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { domain: string; postSlug: string };
+}): Promise<Metadata> {
+  const domain = params.domain;
+  const postSlug = params.postSlug;
+
+  const userData = await getUserAllData(domain);
+  const notionToken = userData?.notion_token!;
+  const notionId = userData?.notion_id!;
+
+  const detailPost = await getNotionDetailPostData(
+    notionToken,
+    notionId,
+    postSlug
+  );
+
+  const {
+    title: detailPostTitle,
+    date: detailPostDate,
+    tags: detailPostTags,
+  } = detailPost?.metadata!;
+
+  return {
+    title: detailPostTitle,
+    description: detailPostTitle,
+    openGraph: {
+      type: "website",
+      locale: "ja",
+      // url: siteConfig.url,
+      title: detailPostTitle,
+      description: detailPostTitle,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: detailPostTitle,
+      description: detailPostTitle,
+      // images: [`${siteConfig.url}/og.jpg`],
+    },
+  };
+}
 
 export default async function BasicNotionBlogDetailPage({
   params,

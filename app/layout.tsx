@@ -8,10 +8,7 @@ import { siteConfig } from "@/config/site";
 const NotoSansJP = Noto_Sans_JP({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
+  title: siteConfig.name,
   description: siteConfig.description,
   keywords: ["Notion", "NotionPress", "Blog"],
   authors: [

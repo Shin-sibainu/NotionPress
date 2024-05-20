@@ -1,8 +1,13 @@
 import { getAllTagsData } from "@/utils/notion/getNotionData";
 import { getUserAllData } from "@/utils/supabase/auth-helpers/getUserData";
+import { Metadata } from "next";
 import Link from "next/link";
 
 //https://github.com/Shin-sibainu/notion-blog-udemy/blob/main/lib/notionAPI.ts
+
+export const metadata: Metadata = {
+  title: "タグ一覧",
+};
 
 export default async function TagsPage({
   params,
