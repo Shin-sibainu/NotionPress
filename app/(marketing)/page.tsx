@@ -3,21 +3,16 @@ import { Icons } from "@/lib/Icons";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 
 export default function IndexPage() {
   return (
     <div>
       <section className="container">
-        <div className="mx-auto text-center md:py-10 space-y-4 py-20">
-          <div className="flex gap-2 justify-center flex-col items-center">
-            {/* <Image
-              src={"/images/notionpress-logo-mod.png"}
-              width={130}
-              height={130}
-              alt="NotionPress_Logo"
-              className="mt-1"
-            /> */}
-            <h1 className="lg:text-9xl md:text-8xl sm:text-7xl text-5xl font-extrabold tracking-tighter">
+        {/* <div className="flex items-center gap-16 py-32"> */}
+        <div className="md:py-10 space-y-4 py-16 mx-auto text-center">
+          <div className="flex gap-2 justify-center flex-col items-center text-left">
+            <h1 className="-ml-1 text-left lg:text-9xl md:text-8xl sm:text-7xl text-5xl font-extrabold tracking-tighter">
               NotionPress
             </h1>
           </div>
@@ -41,6 +36,20 @@ export default function IndexPage() {
             </Link>
           </div>
         </div>
+
+        <div className="mx-auto">
+          <iframe
+            src="https://player.vimeo.com/video/948201541?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1"
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+            className="mx-auto block"
+            title="sample-video"
+            height={503}
+            width={879}
+          ></iframe>
+          <Script src="https://player.vimeo.com/api/player.js"></Script>
+        </div>
+        {/* </div> */}
       </section>
 
       <section id="#feature" className="container py-24">

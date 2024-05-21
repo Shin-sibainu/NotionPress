@@ -1,7 +1,7 @@
 import BasicNotionBlog from "@/components/blog/BasicNotionBlog";
 import { getUserAllData } from "@/utils/supabase/auth-helpers/getUserData";
 
-export default async function BlogHomePage({
+export default async function BasicBlogHomePage({
   params,
 }: {
   params: { domain: string };
