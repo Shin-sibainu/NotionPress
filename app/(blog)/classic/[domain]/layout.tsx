@@ -1,10 +1,13 @@
 import BasicBlogFooter from "@/components/blog/basic/BasicBlogFooter";
 import BasicBlogHeader from "@/components/blog/basic/BasicBlogHeader";
 import { ThemeProvider } from "@/components/blog/basic/ThemeProvider";
+import ClassicBlogFooter from "@/components/blog/classic/ClassicBlogFooter";
 import ClassicBlogHeader from "@/components/blog/classic/ClassicBlogHeader";
 import { getBlogDetailSettingData } from "@/utils/blog/supabaseDataFetch";
 import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
 import { Metadata } from "next";
+
+//https://github.com/timlrx/tailwind-nextjs-starter-blog
 
 export async function generateMetadata({}): Promise<Metadata> {
   const supabase = supabaseServer();
@@ -55,11 +58,11 @@ export default function ClassicNotionBlogLayout({
       disableTransitionOnChange
     >
       <section className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
-        <div className="flex h-screen flex-col justify-between">
+        <div className="flex h-screen flex-col gap-3">
           <ClassicBlogHeader domain={domain} />
           <main>{children}</main>
+          <ClassicBlogFooter domain={domain} />
         </div>
-        {/* <ClassicBlogFooter domain={domain} /> */}
       </section>
     </ThemeProvider>
   );

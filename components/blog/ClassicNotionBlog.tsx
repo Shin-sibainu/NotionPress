@@ -70,7 +70,7 @@ export default async function ClassicNotionBlog({
             Latest
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            {bio}
+            最新のブログ記事をNotionから投稿しています。
           </p>
         </div>
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -111,10 +111,10 @@ export default async function ClassicNotionBlog({
                       <div className="text-base font-medium leading-6">
                         <Link
                           href={`/blog/${slug}`}
-                          className="text-red-500 hover:text-red-600 dark:hover:text-red-400"
+                          className="text-pink-500 hover:text-pink-600 dark:hover:text-pink-400"
                           aria-label={`Read more: "${title}"`}
                         >
-                          Read more &rarr;
+                          もっと読む &rarr;
                         </Link>
                       </div>
                     </div>

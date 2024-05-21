@@ -35,6 +35,24 @@ export const getUserIdFromDomain = async (
   return userData.id;
 };
 
+export const getUserProfileImageUrlFromDomain = async (
+  supabase: SupabaseClient,
+  domain: string
+) => {
+  const { data: userProfileImageUrl, error } = await supabase
+    .from("users")
+    .select("user_profile_image_url")
+    .eq("domain", domain)
+    .single();
+
+  if (error || !userProfileImageUrl) {
+    console.error("Error fetching user data:", error?.message);
+    return null;
+  }
+
+  return userProfileImageUrl;
+};
+
 export const getBlogDetailSettingData = async (
   supabase: SupabaseClient,
   userId: string
