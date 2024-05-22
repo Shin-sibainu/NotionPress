@@ -45,25 +45,19 @@ export default async function ClassicBlogHeader({
       </div>
       <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
         <Link
-          href={`/classic/${domain}`}
+          href={`/classic/${domain}/posts/page/1`}
           className="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
         >
           Blog
         </Link>
         <Link
-          href={`/classic/${domain}`}
+          href={`/classic/${domain}/tags`}
           className="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
         >
           Tags
         </Link>
         <Link
-          href={`/classic/${domain}`}
-          className="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
-        >
-          Projects
-        </Link>
-        <Link
-          href={`/classic/${domain}`}
+          href={`/classic/${domain}/about`}
           className="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
         >
           About
