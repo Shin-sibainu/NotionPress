@@ -5,6 +5,7 @@ import getUserAllData, {
 } from "@/utils/blog/supabaseDataFetch";
 import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
 import Link from "next/link";
+import SocialIcon from "./SocialIcon";
 
 export default async function ClassicBlogFooter({
   domain,
@@ -16,26 +17,14 @@ export default async function ClassicBlogFooter({
 
   const blogMetaData = await getBlogDetailSettingData(supabase, userId);
   const { name, author, x_id, website } = blogMetaData;
+  const safeX_id = x_id || "/";
+  const safeWebsite = website || "/";
 
   return (
     <div className="mt-10 flex flex-col items-center">
       <div className="mb-3 flex space-x-4">
-        <Link
-          className="text-sm text-gray-500 transition hover:text-gray-600"
-          target="_blank"
-          rel="noopener noreferrer"
-          href={x_id}
-        >
-          <Icons.twitter />
-        </Link>
-        <Link
-          className="text-sm text-gray-500 transition hover:text-gray-600"
-          target="_blank"
-          rel="noopener noreferrer"
-          href={website}
-        >
-          <Icons.link />
-        </Link>
+        <SocialIcon href={safeX_id} type="twitter" />
+        <SocialIcon href={safeWebsite} type="link" />
       </div>
       <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
         <div>{author ? author : "ClassicBlog"}</div>
