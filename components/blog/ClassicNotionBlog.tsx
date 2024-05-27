@@ -1,8 +1,6 @@
 import { userData } from "@/global";
 import { getNotionHomePagePosts } from "@/utils/notion/getNotionData";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
-import { getUserIdFromDomain } from "@/utils/blog/supabaseDataFetch";
 import { notFound } from "next/navigation";
 import ClassicBlogList from "./classic/ClassicBlogPostList";
 
@@ -35,28 +33,9 @@ export default async function ClassicNotionBlog({
     notionToken,
     notionId
   );
-
   if (!notionBlogPostsForHome) {
     notFound();
   }
-
-  const supabase = supabaseServer();
-
-  const userId = await getUserIdFromDomain(supabase, domain);
-  if (!userId) {
-    return <p>User not found</p>;
-  }
-
-  const blogDetailSettingData = await getBlogDetailSettingData(
-    supabase,
-    userId
-  );
-
-  if (!blogDetailSettingData) {
-    return <p>Blog details not found</p>;
-  }
-
-  const { name: blogName, bio } = blogDetailSettingData;
 
   return (
     <>
