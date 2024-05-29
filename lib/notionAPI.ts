@@ -136,7 +136,21 @@ export const getPostByPage = async (
   return allPosts.slice(startIndex, endIndex);
 };
 
-//タグからブログ記事取得
+//タグ名からそのタグのブログを全取得
+export const getPostsByTagName = async (
+  notion: Client,
+  notionId: string,
+  tagName: string
+) => {
+  const allPosts = await getAllPosts(notion, notionId);
+  const allTagPosts = allPosts.filter((post) =>
+    post.tags.find((tag: string) => tag === tagName)
+  );
+
+  return allTagPosts;
+};
+
+//タグ名とページ数からブログ記事取得
 export const getPostsByTagAndPage = async (
   notion: Client,
   notionId: string,

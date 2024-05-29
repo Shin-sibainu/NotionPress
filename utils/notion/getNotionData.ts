@@ -8,6 +8,7 @@ import {
   getPostsForHomePage,
   notionInit,
   getNumberOfPagesByTag,
+  getPostsByTagName,
 } from "@/lib/notionAPI";
 
 export const getAllNotionPosts = async (
@@ -83,6 +84,27 @@ export const getAllTagsData = async (notionToken: string, notionId: string) => {
     const allTags = await getAllTags(notion, notionId);
 
     return allTags;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+export const getPostsByTagNameData = async (
+  notionToken: string,
+  notionId: string,
+  tagName: string
+) => {
+  const notion = notionInit(notionToken);
+
+  try {
+    const allPostsByTagName = await getPostsByTagName(
+      notion,
+      notionId,
+      tagName
+    );
+
+    return allPostsByTagName;
   } catch (err) {
     console.error(err);
     return null;

@@ -1,7 +1,8 @@
+import Tag from "@/components/blog/classic/Tag";
 import { getAllTagsData } from "@/utils/notion/getNotionData";
 import { getUserAllData } from "@/utils/supabase/auth-helpers/getUserData";
 import { Metadata } from "next";
-import Link from "next/link";
+import { notFound } from "next/navigation";
 
 //https://github.com/Shin-sibainu/notion-blog-udemy/blob/main/lib/notionAPI.ts
 
@@ -15,54 +16,35 @@ export default async function TagsPage({
   params: { domain: string };
 }) {
   const domain = params.domain;
-
   const userData = await getUserAllData(domain);
   const notionToken = userData?.notion_token!;
   const notionId = userData?.notion_id!;
 
   const allTags = await getAllTagsData(notionToken, notionId);
 
+  if (!allTags) {
+    notFound();
+  }
+
   return (
-    <div className="py-7">
-      <div className="space-y-4">
-        <span className="font-bold text-xl text-muted-foreground">
-          タグ一覧
-        </span>
-
-        <hr />
-      </div>
-
-      <div className="py-4">
-        <div>
-          <div className="tag grid sm:grid-cols-2 md:grid-cols-3 gap-y-6 gap-x-3">
-            {allTags?.map((tag) => (
-              <Link
-                href={`tags/${tag}/1`}
-                key={tag}
-                className="relative flex items-center gap-2 border rounded-l-2xl px-3 py-2 hover:bg-muted duration-150 border-muted-foreground"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 14 14"
-                >
-                  <g
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="m.719 9.391l3.89 3.89a.75.75 0 0 0 1.06 0l7.72-7.72a.36.36 0 0 0 .11-.29l-.59-3.83a.37.37 0 0 0-.35-.35l-3.83-.59a.36.36 0 0 0-.29.11l-7.72 7.72a.75.75 0 0 0 0 1.06" />
-                    <path d="M9.889 4.611a.5.5 0 1 1 0-1a.5.5 0 0 1 0 1" />
-                  </g>
-                </svg>
-                <span className="font-medium">{tag}</span>
-              </Link>
-            ))}
-          </div>
+    <>
+      <div className="flex flex-col items-start justify-start divide-y divide-gray-200 dark:divide-gray-700 md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6 md:divide-y-0">
+        <div className="space-x-2 pb-8 pt-6 md:space-y-5">
+          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:border-r-2 md:px-6 md:text-6xl md:leading-14">
+            Tags
+          </h1>
+        </div>
+        <div className="flex max-w-lg flex-wrap">
+          {allTags.length === 0 && "No tags found."}
+          {allTags.map((tag: string) => {
+            return (
+              <div key={tag} className="mb-2 mr-5 mt-2">
+                <Tag tag={tag} domain={domain} />
+              </div>
+            );
+          })}
         </div>
       </div>
-    </div>
+    </>
   );
 }
