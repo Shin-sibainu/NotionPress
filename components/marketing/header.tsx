@@ -38,7 +38,7 @@ export default async function Header() {
               href={"/blog/templates"}
               className="hover:text-muted-foreground/70 sm:text-sm pt-1"
             >
-              サンプル
+              サンプル一覧
             </Link>
           </nav>
         </div>

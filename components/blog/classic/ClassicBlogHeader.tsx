@@ -6,6 +6,7 @@ import {
 } from "@/utils/blog/supabaseDataFetch";
 import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
 import Link from "next/link";
+import ThemeSwitch from "./ThemeSwitch";
 
 export default async function ClassicBlogHeader({
   domain,
@@ -63,7 +64,7 @@ export default async function ClassicBlogHeader({
           About
         </Link>
         {/* <SearchButton /> */}
-        {/* <ThemeSwitch /> */}
+        <ThemeSwitch />
         {/* <MobileNav /> */}
       </div>
     </header>

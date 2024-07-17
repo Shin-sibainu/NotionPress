@@ -21,7 +21,7 @@ export default async function HowToWriteBlogWithNotion({
   const blogTemplatePlan = templateIdToTemplateName(userData?.template_id);
 
   return (
-    <div className="px-4">
+    <div className="md:px-4">
       <div className="space-y-10">
         <div>
           <h3 className="text-2xl md:text-3xl font-medium">
@@ -38,7 +38,7 @@ export default async function HowToWriteBlogWithNotion({
         </div>
 
         <div className="space-y-1">
-          <p className="text-xl mb-2">テキストで理解したい方はこちら👇</p>
+          <p className="text-xl mb-1">テキストで理解したい方はこちら👇</p>
           <h3 className="font-extrabold text-xl border-b-2 border-slate-400 sm:w-1/3 mb-2">
             ①カラムの追加
           </h3>
@@ -75,8 +75,9 @@ export default async function HowToWriteBlogWithNotion({
             <li>・ 「Published」</li>
           </ul>
           <p>
-            になります。英語の文字列は正常に合わせるようにしてください。例えば、「Name」
-            を「name」と記述すると記事投稿ができませんので、大文字小文字や綴りは正常に合わせるように気を付けましょう。
+            になります。英語の文字列は正常に合わせるようにしてください。
+            <br />
+            例えば、「Name」を「name」と記述すると記事投稿ができませんので、大文字小文字や綴りは正常に合わせるように気を付けましょう。
           </p>
         </div>
 

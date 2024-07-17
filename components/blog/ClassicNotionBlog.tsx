@@ -3,6 +3,7 @@ import { getNotionHomePagePosts } from "@/utils/notion/getNotionData";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { notFound } from "next/navigation";
 import ClassicBlogList from "./classic/ClassicBlogPostList";
+import Link from "next/link";
 
 interface BasicNotionBlogProps {
   domain: string;
@@ -49,6 +50,15 @@ export default async function ClassicNotionBlog({
           </p>
         </div>
         <ClassicBlogList posts={notionBlogPostsForHome} domain={domain} />
+        <div className="flex justify-end text-base font-medium leading-6">
+          <Link
+            href={`${domain}/posts/page/1`}
+            className="text-pink-500 hover:text-pink-600 dark:hover:text-pink-400 pt-4"
+            aria-label="All posts"
+          >
+            全ての記事を見る →
+          </Link>
+        </div>
       </div>
     </>
   );

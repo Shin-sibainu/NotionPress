@@ -34,14 +34,14 @@ export default async function BasicNotionBlog({
   const notionToken = userData?.notion_token!;
   const notionId = userData?.notion_id!;
 
-  const notionBlogPostsForHome = await getNotionHomePagePosts(
-    notionToken,
-    notionId
-  );
-
   const supabase = supabaseServer();
 
-  const userId = await getUserIdFromDomain(supabase, domain);
+  // 並列でデータを取得
+  const [notionBlogPostsForHome, userId] = await Promise.all([
+    getNotionHomePagePosts(notionToken, notionId),
+    getUserIdFromDomain(supabase, domain),
+  ]);
+
   if (!userId) {
     return <p>User not found</p>;
   }

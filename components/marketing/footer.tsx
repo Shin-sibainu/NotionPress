@@ -7,13 +7,13 @@ export default function Footer() {
         <div className="flex flex-col items-center border-t pt-6">
           <nav className="mb-4 flex flex-wrap justify-center gap-x-4 gap-y-2 md:justify-start md:gap-6">
             <Link
-              href="#"
+              href="/blog/templates"
               className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
             >
-              BlogSample
+              サンプル一覧
             </Link>
             <Link
-              href="#"
+              href="/setup"
               className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
             >
               Get Started
@@ -22,7 +22,7 @@ export default function Footer() {
 
           <div className="flex gap-4">
             <Link
-              href="#"
+              href="https://twitter.com/Shin_Engineer"
               target="_blank"
               className="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600"
               rel="noreferrer"

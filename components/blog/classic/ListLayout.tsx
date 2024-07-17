@@ -2,7 +2,6 @@ import Tag from "./Tag";
 import { NotionPageData } from "@/types";
 import CustomLink from "./Link";
 import ClassicSidebar from "./ClassicSidebar";
-import { getPageLink } from "@/utils/blog/blog-helper";
 import Link from "next/link";
 
 interface PaginationProps {
@@ -86,7 +85,7 @@ export default function ListLayout({
           <ul className="flex flex-col gap-9">
             {!posts.length && "No posts found."}
             {displayPosts.map((post) => {
-              const { id, date, title, tags } = post;
+              const { id, date, title, tags, slug } = post;
               return (
                 <li key={id} className="">
                   <article className="">
@@ -99,12 +98,12 @@ export default function ListLayout({
                     <div className="">
                       <div>
                         <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                          <CustomLink
-                            href={`/${id}`}
+                          <Link
+                            href={`/classic/${domain}/posts/${slug}`}
                             className="text-gray-900 dark:text-gray-100"
                           >
                             {title}
-                          </CustomLink>
+                          </Link>
                         </h3>
                         <div className="flex flex-wrap">
                           {tags?.map((tag: string) => (

@@ -4,6 +4,7 @@ import { SetupData } from "./setup-step-component";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Icons } from "@/lib/Icons";
+import { isPaidTemplate } from "@/utils/setup/templateConstants";
 
 export default function SetupCompleteComponent({
   onBack,
@@ -14,53 +15,87 @@ export default function SetupCompleteComponent({
 }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [isStripeLoading, setIsStripeLoading] = useState(false);
   const [blogCreateError, setBlogCreateError] = useState("");
 
   const handleCreateBlog = async () => {
-    setIsLoading(true);
+    if (isPaidTemplate(Number(setupData.templateId))) {
+      setIsStripeLoading(true);
+      //有料のテンプレートの場合
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/stripe/create-checkout-session`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ setupData }),
+          }
+        );
+        const session = await response.json();
+        router.push(session.url);
+      } catch (error) {
+        console.error("Stripe session creation failed", error);
+        setBlogCreateError(
+          "決済ページの作成に失敗しました。もう一度お試しください。"
+        );
+        setIsStripeLoading(false);
+      }
+    } else {
+      //無料ブログテンプレート or 決済終了後
+      setIsLoading(true);
 
-    try {
-      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/createNotionBlog`, {
-        method: "POST",
-        headers: {
-          "Content-Types": "application/json",
-        },
-        body: JSON.stringify({ setupData }),
-      });
+      try {
+        await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/createNotionBlog`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Types": "application/json",
+            },
+            body: JSON.stringify({ setupData }),
+          }
+        );
 
-      await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/updateUserProfileImage`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Types": "application/json",
-          },
-        }
-      );
+        await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/updateUserProfileImage`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Types": "application/json",
+            },
+          }
+        );
 
-      await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/createBlogMetaData`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Types": "application/json",
-          },
-          body: JSON.stringify({ setupData }),
-        }
-      );
+        await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/createBlogMetaData`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Types": "application/json",
+            },
+            body: JSON.stringify({ setupData }),
+          }
+        );
 
-      router.push(`/${setupData.siteDomain}/dashboard/blog`);
-    } catch (err) {
-      console.log(err);
-      setBlogCreateError(
-        "ブログの作成に失敗しました。もう一度最初から設定をお願いします。"
-      );
-      setIsLoading(false);
+        router.push(`/${setupData.siteDomain}/dashboard/blog`);
+      } catch (err) {
+        console.log(err);
+        setBlogCreateError(
+          "ブログの作成に失敗しました。もう一度最初から設定をお願いします。"
+        );
+        setIsLoading(false);
+      }
     }
   };
 
   if (blogCreateError) {
     return <span>{blogCreateError}</span>;
+  }
+
+  if (isStripeLoading) {
+    return (
+      <span className="font-medium text-xl">決済ページへ移動中です...</span>
+    );
   }
 
   return (
@@ -116,7 +151,9 @@ export default function SetupCompleteComponent({
               className={cn(buttonVariants({ variant: "outline" }))}
               onClick={handleCreateBlog}
             >
-              ブログ作成を開始🚀
+              {isPaidTemplate(Number(setupData.templateId))
+                ? "決済へ進む"
+                : "ブログ作成を開始🚀"}
             </button>
           </div>
         </>

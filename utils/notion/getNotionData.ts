@@ -34,9 +34,9 @@ export const getNotionHomePagePosts = async (
   const notion = notionInit(notionToken);
 
   try {
-    const honepagePosts = await getPostsForHomePage(notion, notionId);
+    const homepagePosts = await getPostsForHomePage(notion, notionId);
 
-    return honepagePosts;
+    return homepagePosts;
   } catch (err) {
     console.error(err);
     return null;
