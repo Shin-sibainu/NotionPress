@@ -15,7 +15,7 @@ export default function BasicBlogHeader({ domain }: { domain: string }) {
   const { setTheme } = useTheme();
 
   return (
-    <header className="py-6">
+    <header className="py-5">
       <div className="flex items-center gap-5">
         <Link href={`/basic/${domain}`} className="font-bold md:text-3xl">
           ShinCode

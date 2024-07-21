@@ -23,6 +23,7 @@ export default function SetupCompleteComponent({
       setIsStripeLoading(true);
       //有料のテンプレートの場合
       try {
+        //決済開始
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/stripe/create-checkout-session`,
           {
@@ -41,7 +42,7 @@ export default function SetupCompleteComponent({
         setIsStripeLoading(false);
       }
     } else {
-      //無料ブログテンプレート or 決済終了後
+      //無料ブログテンプレート
       setIsLoading(true);
 
       try {

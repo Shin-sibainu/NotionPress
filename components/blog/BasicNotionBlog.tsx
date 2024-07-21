@@ -70,7 +70,7 @@ export default async function BasicNotionBlog({
         </div>
       </div>
 
-      <div className="py-10">
+      <div className="py-7">
         <div className="space-y-4">
           <span className="block font-medium text-muted-foreground text-lg">
             最近の投稿
@@ -99,7 +99,7 @@ export default async function BasicNotionBlog({
         </div>
       </div>
 
-      <div className="py-4 text-center">
+      <div className="py-12 text-center">
         <Link
           className="text-sky-600 underline underline-offset-4"
           href={`/basic/${domain}/posts/page/1`}

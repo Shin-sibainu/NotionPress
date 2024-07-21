@@ -17,7 +17,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Icons } from "@/lib/Icons";
-import { useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 
 //https://github.com/Shin-sibainu/mail-form-for-shincode-camp/blob/main/components/MailForm.tsx
 
@@ -28,6 +28,10 @@ export default function BlogContentDetailSettings({
   userId: string | undefined;
   blogDetailSettingData: any;
 }) {
+  if (!blogDetailSettingData) {
+    notFound();
+  }
+
   const { name, bio, x_id, website, google_adsense, user_profile_image_url } =
     blogDetailSettingData;
 

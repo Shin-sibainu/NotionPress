@@ -1,7 +1,7 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { redirect, useRouter } from "next/navigation";
+import { notFound, redirect, useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -28,6 +28,10 @@ export default function AvatarSetting({
 }) {
   const supabase = createClientComponentClient();
   const router = useRouter();
+
+  if (!userData) {
+    return;
+  }
 
   const { domain, template_id, user_profile_image_url } = userData!;
 

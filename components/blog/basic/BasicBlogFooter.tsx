@@ -27,7 +27,7 @@ const BasicBlogFooter = async ({ domain }: { domain: string }) => {
 
   return (
     <footer className="w-full">
-      <div className="pt-2 max-w-2xl mx-auto px-4 flex items-center justify-between">
+      <div className="py-3 max-w-2xl mx-auto px-4 flex items-center justify-between">
         <ul className="flex items-center justify-center gap-2">
           <li>
             <Link href={x_id} target="_blank" rel="noreferrer">

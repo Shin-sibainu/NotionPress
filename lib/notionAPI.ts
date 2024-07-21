@@ -12,6 +12,14 @@ import { NotionToMarkdown } from "notion-to-md";
 //https://github.com/ymtdzzz/notion-blog-converter/blob/main/src/notion/client.ts
 //https://github.com/Shin-sibainu/notion-blog-udemy/blob/main/lib/notionAPI.ts
 
+interface PageMetaData {
+  id: string;
+  title: string;
+  tags: string[];
+  date: string;
+  slug: string;
+}
+
 export const notionInit = (integrationToken: string) => {
   let notion = new Client({
     auth: integrationToken,
@@ -71,7 +79,7 @@ export const getAllPosts = async (notion: Client, notionId: string) => {
 export const getPostsForHomePage = async (
   notion: Client,
   notionId: string,
-  pageSize: number = 4
+  pageSize: number = 3
 ) => {
   const allPostForHome = await getAllPosts(notion, notionId);
   return allPostForHome.slice(0, pageSize);
@@ -83,19 +91,23 @@ export const getDetailPost = async (
   notionId: string,
   slug: string
 ) => {
-  const response = await notion.databases.query({
-    database_id: notionId,
-    filter: {
-      property: "Slug",
-      formula: {
-        string: {
-          equals: slug,
+  const [pageResponse, databaseResponse] = await Promise.all([
+    notion.databases.query({
+      database_id: notionId,
+      filter: {
+        property: "Slug",
+        formula: {
+          string: {
+            equals: slug,
+          },
         },
       },
-    },
-  });
+      page_size: 1,
+    }),
+    notion.databases.retrieve({ database_id: notionId }),
+  ]);
 
-  const page = response.results[0] as PageObjectResponse;
+  const page = pageResponse.results[0] as PageObjectResponse;
   const metadata = getPageMetaData(page);
 
   //https://github.com/souvikinator/notion-to-md
@@ -212,45 +224,55 @@ function isPageObjectResponse(
   );
 }
 
-function getPageMetaData(post: PageObjectResponse) {
-  return {
+function getPageMetaData(post: PageObjectResponse): PageMetaData {
+  const metadata: PageMetaData = {
     id: post.id,
     title: getTitle(post),
     tags: getTags(post),
     date: getDate(post),
     slug: getSlug(post),
   };
+
+  // Optional: Add validation or default values
+  if (!metadata.title) {
+    console.warn(`Post ${post.id} has no title`);
+  }
+  if (!metadata.date) {
+    metadata.date = post.created_time;
+  }
+  if (!metadata.slug) {
+    console.warn(`Post ${post.id} has no slug`);
+  }
+
+  return metadata;
 }
 
 function getTitle(page: PageObjectResponse): string {
-  const title = page.properties.Name;
-  return title.type === "title" && title.title.length > 0
-    ? title.title[0].plain_text
+  const titleProperty = page.properties.Name;
+  return titleProperty?.type === "title"
+    ? titleProperty.title[0]?.plain_text ?? ""
     : "";
 }
 
 function getTags(page: PageObjectResponse): string[] {
-  const tags = page.properties["Tags"];
-  return tags.type === "multi_select"
-    ? tags.multi_select.map((val) => val.name)
+  const tagsProperty = page.properties["Tags"];
+  return tagsProperty?.type === "multi_select"
+    ? tagsProperty.multi_select.map((val) => val.name)
     : [];
 }
 
 function getDate(page: PageObjectResponse): string {
   const dateProperty = page.properties["Date"];
-
-  // プロパティが存在し、タイプが 'date' であることを確認
-  if (dateProperty && dateProperty.type === "date" && dateProperty.date) {
-    return dateProperty.date.start; // 開始日を返す
-  } else {
-    console.warn("Date property is missing or not of type 'date'.");
-    return "No date provided"; // デフォルト値または適切な置換値を提供 // 日付プロパティが存在しない、または期待するタイプではない場合
+  if (dateProperty?.type === "date" && dateProperty.date) {
+    return dateProperty.date.start ?? "";
   }
+  console.warn(`Date property is missing or invalid for post ${page.id}`);
+  return "";
 }
 
 function getSlug(page: PageObjectResponse): string {
-  const slug = page.properties.Slug;
-  return slug.type === "rich_text" && slug.rich_text.length > 0
-    ? slug.rich_text[0].plain_text
+  const slugProperty = page.properties.Slug;
+  return slugProperty?.type === "rich_text"
+    ? slugProperty.rich_text[0]?.plain_text ?? ""
     : "";
 }

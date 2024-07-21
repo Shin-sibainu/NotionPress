@@ -8,10 +8,15 @@ export default async function SetupPage() {
 
   const { data } = await supabase.auth.getUser();
   const user = data.user;
+
   const userId = data.user?.id!;
 
   if (user) {
     const userAllData = await getUserAllData(supabase, userId);
+
+    if (!userAllData) {
+      return;
+    }
 
     const { domain } = userAllData!;
 
