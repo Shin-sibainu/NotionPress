@@ -7,214 +7,223 @@ import Script from "next/script";
 
 export default function IndexPage() {
   return (
-    <div>
+    <div className="bg-gradient-to-b from-blue-50 to-white">
       <section className="container">
-        {/* <div className="flex items-center gap-16 py-32"> */}
-        <div className="md:py-10 space-y-4 py-16 mx-auto text-center">
-          <div className="flex gap-2 justify-center flex-col items-center text-left">
-            <h1 className="-ml-1 text-left lg:text-9xl md:text-8xl sm:text-7xl text-5xl font-extrabold tracking-tighter">
-              NotionPress
-            </h1>
-          </div>
-          <div className="text-muted-foreground md:text-xl">
-            <p>
-              Notionを利用して誰でも簡単にブログ投稿ができるWebサービスです。
-            </p>
-          </div>
-          <div className="space-x-2">
+        <div className="md:py-16 space-y-6 py-6 mx-auto text-center">
+          <h1 className="text-3xl md:text-6xl font-extrabold tracking-tight text-blue-900">
+            Notionで<span className="text-blue-600">爆速</span>ブログ作成
+          </h1>
+          <p className="text-sm md:text-2xl text-gray-600 max-w-2xl mx-auto">
+            NotionPressであなたの知識を瞬時にブログへ。
+            <br />
+            難しい設定なし、数クリックで始められます。
+          </p>
+          <div className="space-x-4 mt-8">
             <Link
               href={"/setup"}
-              className={cn(buttonVariants({ size: "lg" }))}
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "bg-blue-600 hover:bg-blue-700"
+              )}
             >
-              はじめる
+              今すぐ始める
             </Link>
             <Link
               href={"/blog/templates"}
-              className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
+              className={cn(
+                buttonVariants({ size: "lg", variant: "outline" }),
+                "text-blue-600 border-blue-600"
+              )}
             >
-              サンプル
+              テンプレート一覧
             </Link>
           </div>
         </div>
 
-        <div className="mx-auto">
+        <div className="mx-auto mt-2 shadow-2xl rounded-lg overflow-hidden">
           <iframe
             src="https://player.vimeo.com/video/948201541?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1"
             frameBorder="0"
             allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
-            className="mx-auto block"
-            title="sample-video"
-            height={503}
-            width={879}
+            className="w-full aspect-video"
+            title="NotionPressの使い方"
           ></iframe>
           <Script src="https://player.vimeo.com/api/player.js"></Script>
         </div>
-        {/* </div> */}
       </section>
 
-      <section id="#feature" className="container py-24">
-        <div>
-          <div className="bg-white py-6 sm:py-8 lg:py-12">
-            <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
-              <div className="mb-10 md:mb-16">
-                <h2 className="mb-4 text-center text-5xl font-bold text-gray-800 md:mb-6">
-                  特徴
-                </h2>
+      <section id="feature" className="container md:py-24 py-16">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-bold text-center text-blue-900 mb-12">
+            NotionPressの特徴
+          </h2>
 
-                <p className="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">
-                  NotionPressでは、Notionユーザーであれば誰でも簡単にブログを作成して運用することを可能にします。
-                </p>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2 md:gap-8 xl:grid-cols-3">
-                <div className="flex divide-x rounded-lg border bg-gray-50">
-                  <div className="flex items-center p-2 md:p-4">
-                    <Icons.article />
-                  </div>
-
-                  <div className="p-4 md:p-6 flex flex-col justify-center">
-                    <h3 className="mb-2 text-lg font-semibold md:text-xl">
-                      Notionでブログ作成
-                    </h3>
-                    <p className="text-gray-500">
-                      Notionユーザーであれば、たったの数秒でブログ開発をスタートできます。難しいプログラミングは必要ありません。
-                    </p>
-                  </div>
-                </div>
-                <div className="flex divide-x rounded-lg border bg-gray-50">
-                  <div className="flex items-center p-2 md:p-4">
-                    <Icons.check />
-                  </div>
-                  <div className="p-4 md:p-6 flex flex-col justify-center">
-                    <h3 className="mb-2 text-lg font-semibold md:text-xl">
-                      無料でスタート
-                    </h3>
-                    <p className="text-gray-500">
-                      ベーシックテンプレートは無料で利用できます。さらに優れたデザインは有料でご利用可能です。後からも変更可能。
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex divide-x rounded-lg border bg-gray-50">
-                  <div className="flex items-center p-2 md:p-4">
-                    <Icons.media />
-                  </div>
-                  <div className="p-4 md:p-6 flex flex-col justify-center">
-                    <h3 className="mb-2 text-lg font-semibold md:text-xl">
-                      テンプレート利用
-                    </h3>
-                    <p className="text-gray-500">
-                      テンプレートをご用意しておりますので、ブログのデザインは不要です。ワンクリックで選んですぐにスタートできます。
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex divide-x rounded-lg border bg-gray-50">
-                  <div className="flex items-center p-2 md:p-4">
-                    <Icons.billing />
-                  </div>
-                  <div className="p-4 md:p-6 flex flex-col justify-center">
-                    <h3 className="mb-2 text-lg font-semibold md:text-xl">
-                      AI執筆
-                    </h3>
-                    <p className="text-gray-500">
-                      Notionで搭載されているAI執筆を利用して、ブログ執筆が可能です。面倒な記事作成は丸ごとAIに任せてましょう。
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex divide-x rounded-lg border bg-gray-50">
-                  <div className="flex items-center p-2 md:p-4">
-                    <Icons.pizza />
-                  </div>
-                  <div className="p-4 md:p-6 flex flex-col justify-center">
-                    <h3 className="mb-2 text-lg font-semibold md:text-xl">
-                      収益化
-                    </h3>
-                    <p className="text-gray-500">
-                      GoogleアドセンスIDをご用意いただくだけで、すぐにNotionブログで収益化がスタートできます。さらなる副収入を獲得しましょう。
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex divide-x rounded-lg border bg-gray-50">
-                  <div className="flex items-center p-2 md:p-4">
-                    <Icons.trash />
-                  </div>
-                  <div className="p-4 md:p-6 flex flex-col justify-center">
-                    <h3 className="mb-2 text-lg font-semibold md:text-xl">
-                      他サービスとの連携
-                    </h3>
-                    <p className="text-gray-500">
-                      Notionは他の多くのサービスと連携でき、効率的なワークフローを実現します。
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="grid gap-8 md:grid-cols-2">
+            <FeatureCard
+              icon={<Icons.article className="w-10 h-10 text-blue-600" />}
+              title="Notionで簡単作成"
+              description="プログラミング不要。Notionで書くだけで、美しいブログが完成します。"
+            />
+            <FeatureCard
+              icon={<Icons.check className="w-10 h-10 text-green-600" />}
+              title="無料でスタート"
+              description="基本機能は無料。テンプレートの種類によっては課金が必要です。"
+            />
+            <FeatureCard
+              icon={<Icons.media className="w-10 h-10 text-purple-600" />}
+              title="豊富なテンプレート"
+              description="テンプレートからワンクリックで選んでブログを開始できます。"
+            />
+            <FeatureCard
+              icon={<Icons.billing className="w-10 h-10 text-yellow-600" />}
+              title="AIブログ執筆"
+              description="NotionのAI機能を活用し、記事作成を効率化できます。"
+            />
           </div>
         </div>
       </section>
 
-      <section className="py-6 sm:py-8 lg:py-24">
-        <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
-          <div className="mb-10 md:mb-16">
-            <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-5xl">
-              ブログテンプレート
-            </h2>
+      <section className="md:py-24 py-16">
+        <div className="container">
+          <h2 className="text-3xl md:text-5xl font-bold text-center text-blue-900 mb-12">
+            魅力的なテンプレート
+          </h2>
+          <p className="text-xl text-center text-gray-600 mb-16 max-w-2xl mx-auto">
+            あなたの好みに合わせて選べる多彩なデザイン。
+            クリック一つで、プロ級のブログデザインを適用できます。
+          </p>
 
-            <p className="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">
-              テンプレートを選んで、すぐにNotionブログ運用ができます。テンプレートは随時追加しています。
-            </p>
+          <div className="grid md:grid-cols-2 gap-8">
+            <TemplateCard
+              href="/basic/TestBlog"
+              imageSrc="/images/blog/blog-post-1.jpg"
+              title="ベーシックテンプレート"
+              description="シンプルで使いやすい、初心者向けデザイン"
+            />
+            <TemplateCard
+              href="/classic/TestBlog"
+              imageSrc="/images/blog/blog-post-2.jpg"
+              title="クラシックテンプレート"
+              description="落ち着いた雰囲気の、読みやすいデザイン"
+            />
           </div>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:gap-6 xl:gap-8">
+      <section className="container md:py-24 py-16 bg-gray-100 rounded-md">
+        <h2 className="text-2xl md:text-5xl font-bold text-center text-blue-900 md:mb-16 mb-10">
+          使い方は<span className="text-blue-600">簡単</span>3ステップ
+        </h2>
+        <div className="max-w-4xl mx-auto">
+          <div className="relative">
+            <div className="absolute left-6 inset-y-0 w-1 bg-blue-200 rounded"></div>
+            <StepItem
+              number="1"
+              title="Notion基本データの入力"
+              description="ステップに従ってドメイン名とテンプレートを決める。"
+            />
+            <StepItem
+              number="2"
+              title="Notionでデータベースの作成"
+              description="Notionで作成したデータベースからNotion Token/Notion IDを取得して入力。"
+            />
+            <StepItem
+              number="3"
+              title="Notionブログ完成🚀"
+              description="設定完了！あなたの記事が美しいブログとして公開されます。SNSで共有して読者を増やしましょう。"
+            />
+          </div>
+          <div className="mt-8 flex items-center justify-center">
             <Link
-              href={"/basic/TestBlog"}
-              className="group relative flex h-48 items-end justify-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-96"
-              target="_blank"
-              rel="noreferrer"
+              href={"/setup"}
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "bg-blue-600 hover:bg-blue-700"
+              )}
             >
-              <Image
-                src={"/images/blog/blog-post-1.jpg"}
-                loading="lazy"
-                alt="ベーシックブログテンプレート"
-                className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
-                width={400}
-                height={500}
-              />
-
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-
-              <span className="relative mr-3 mb-3 inline-block rounded-lg border border-gray-500 px-2 py-1 text-xs text-gray-200 backdrop-blur md:px-3 md:text-sm">
-                ベーシック
-              </span>
-            </Link>
-
-            <Link
-              href={"/classic/TestBlog"}
-              className="group relative flex h-48 items-end justify-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-96"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Image
-                src={"/images/blog/blog-post-2.jpg"}
-                loading="lazy"
-                alt="クラシックブログテンプレート"
-                className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
-                width={400}
-                height={500}
-              />
-
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-
-              <span className="relative mr-3 mb-3 inline-block rounded-lg border border-gray-500 px-2 py-1 text-xs text-gray-200 backdrop-blur md:px-3 md:text-sm">
-                クラシック
-              </span>
+              今すぐ始める
             </Link>
           </div>
         </div>
       </section>
+
+      {/* <section className="container py-24">
+        <h2 className="text-4xl md:text-5xl font-bold text-center text-blue-900 mb-16">
+          ユーザーの<span className="text-blue-600">声</span>
+        </h2>
+        <div className="grid md:grid-cols-2 gap-8">
+          <TestimonialCard
+            quote="NotionPressのおかげで、ブログ運営がこんなに簡単だとは思いませんでした。Notionユーザーには必須のツールです！"
+            author="田中 花子"
+            role="フリーランスライター"
+          />
+          <TestimonialCard
+            quote="プログラミングの知識がなくても、プロ級のブログが作れるなんて感動です。しかも無料から始められるのが嬉しいですね。"
+            author="佐藤 太郎"
+            role="起業家"
+          />
+        </div>
+      </section> */}
+    </div>
+  );
+}
+
+function FeatureCard({ icon, title, description }: any) {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className="flex items-center mb-4">
+        {icon}
+        <h3 className="text-xl font-semibold ml-4">{title}</h3>
+      </div>
+      <p className="text-gray-600">{description}</p>
+    </div>
+  );
+}
+
+function TemplateCard({ href, imageSrc, title, description }: any) {
+  return (
+    <Link
+      href={href}
+      className="group block bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <Image
+        src={imageSrc}
+        alt={title}
+        width={400}
+        height={500}
+        className="w-full h-48 object-cover"
+      />
+      <div className="p-6">
+        <h3 className="text-xl font-semibold mb-2">{title}</h3>
+        <p className="text-gray-600">{description}</p>
+      </div>
+    </Link>
+  );
+}
+
+function StepItem({ number, title, description }: any) {
+  return (
+    <div className="relative pl-16 pb-8">
+      <div className="absolute left-0 top-0 bg-blue-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">
+        {number}
+      </div>
+      <h3 className="text-2xl font-semibold mb-2">{title}</h3>
+      <p className="text-gray-600">{description}</p>
+    </div>
+  );
+}
+
+function TestimonialCard({ quote, author, role }: any) {
+  return (
+    <div className="bg-white p-8 rounded-xl shadow-lg">
+      <div className="text-4xl text-blue-500 mb-4">"</div>
+      <p className="text-lg text-gray-700 mb-6">{quote}</p>
+      <div>
+        <p className="font-semibold">{author}</p>
+        <p className="text-gray-500">{role}</p>
+      </div>
     </div>
   );
 }

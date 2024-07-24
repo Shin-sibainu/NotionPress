@@ -1,4 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
+import { cache } from "react";
 
 export default async function getUserAllData(
   supabase: SupabaseClient,
@@ -17,23 +18,22 @@ export default async function getUserAllData(
   }
 }
 
-export const getUserIdFromDomain = async (
-  supabase: SupabaseClient,
-  domain: string
-) => {
-  const { data: userData, error } = await supabase
-    .from("users")
-    .select("id")
-    .eq("domain", domain)
-    .single();
+export const getUserIdFromDomain = cache(
+  async (supabase: SupabaseClient, domain: string) => {
+    const { data: userData, error } = await supabase
+      .from("users")
+      .select("id")
+      .eq("domain", domain)
+      .single();
 
-  if (error || !userData) {
-    console.error("Error fetching user data:", error?.message);
-    return null;
+    if (error || !userData) {
+      console.error("Error fetching user data:", error?.message);
+      return null;
+    }
+
+    return userData.id;
   }
-
-  return userData.id;
-};
+);
 
 export const getUserProfileImageUrlFromDomain = async (
   supabase: SupabaseClient,

@@ -8,6 +8,7 @@ import {
   QueryDatabaseResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import { NotionToMarkdown } from "notion-to-md";
+import { cache } from "react";
 
 //https://github.com/ymtdzzz/notion-blog-converter/blob/main/src/notion/client.ts
 //https://github.com/Shin-sibainu/notion-blog-udemy/blob/main/lib/notionAPI.ts
@@ -29,7 +30,7 @@ export const notionInit = (integrationToken: string) => {
 };
 
 //全記事情報取得
-export const getAllPosts = async (notion: Client, notionId: string) => {
+export const getAllPosts = cache(async (notion: Client, notionId: string) => {
   let posts: PageObjectResponse[] = [];
   let cursor: string | undefined;
   let hasMore = false;
@@ -73,53 +74,49 @@ export const getAllPosts = async (notion: Client, notionId: string) => {
   }
 
   return result;
-};
+});
 
 //Blogホームページ用
-export const getPostsForHomePage = async (
-  notion: Client,
-  notionId: string,
-  pageSize: number = 3
-) => {
-  const allPostForHome = await getAllPosts(notion, notionId);
-  return allPostForHome.slice(0, pageSize);
-};
+export const getPostsForHomePage = cache(
+  async (notion: Client, notionId: string, pageSize: number = 3) => {
+    const allPostForHome = await getAllPosts(notion, notionId);
+    return allPostForHome.slice(0, pageSize);
+  }
+);
 
 //詳細記事
-export const getDetailPost = async (
-  notion: Client,
-  notionId: string,
-  slug: string
-) => {
-  const [pageResponse, databaseResponse] = await Promise.all([
-    notion.databases.query({
-      database_id: notionId,
-      filter: {
-        property: "Slug",
-        formula: {
-          string: {
-            equals: slug,
+export const getDetailPost = cache(
+  async (notion: Client, notionId: string, slug: string) => {
+    const [pageResponse, databaseResponse] = await Promise.all([
+      notion.databases.query({
+        database_id: notionId,
+        filter: {
+          property: "Slug",
+          formula: {
+            string: {
+              equals: slug,
+            },
           },
         },
-      },
-      page_size: 1,
-    }),
-    notion.databases.retrieve({ database_id: notionId }),
-  ]);
+        page_size: 1,
+      }),
+      notion.databases.retrieve({ database_id: notionId }),
+    ]);
 
-  const page = pageResponse.results[0] as PageObjectResponse;
-  const metadata = getPageMetaData(page);
+    const page = pageResponse.results[0] as PageObjectResponse;
+    const metadata = getPageMetaData(page);
 
-  //https://github.com/souvikinator/notion-to-md
-  const n2m = new NotionToMarkdown({ notionClient: notion });
-  const mdBlocks = await n2m.pageToMarkdown(page.id);
-  const mdString = n2m.toMarkdownString(mdBlocks).parent;
+    //https://github.com/souvikinator/notion-to-md
+    const n2m = new NotionToMarkdown({ notionClient: notion });
+    const mdBlocks = await n2m.pageToMarkdown(page.id);
+    const mdString = n2m.toMarkdownString(mdBlocks).parent;
 
-  return {
-    metadata,
-    markdown: mdString,
-  };
-};
+    return {
+      metadata,
+      markdown: mdString,
+    };
+  }
+);
 
 //タグ取得
 export const getAllTags = async (notion: Client, notionId: string) => {
@@ -133,20 +130,18 @@ export const getAllTags = async (notion: Client, notionId: string) => {
 };
 
 //ブログ記事リスト(ページネーション)
-export const getPostByPage = async (
-  notion: Client,
-  notionId: string,
-  pageNumber: number
-) => {
-  const NUMBER_OF_POSTS_PER_PAGE = 5;
+export const getPostByPage = cache(
+  async (notion: Client, notionId: string, pageNumber: number) => {
+    const NUMBER_OF_POSTS_PER_PAGE = 5;
 
-  const allPosts = await getAllPosts(notion, notionId);
+    const allPosts = await getAllPosts(notion, notionId);
 
-  const startIndex = (pageNumber - 1) * NUMBER_OF_POSTS_PER_PAGE;
-  const endIndex = startIndex + NUMBER_OF_POSTS_PER_PAGE;
+    const startIndex = (pageNumber - 1) * NUMBER_OF_POSTS_PER_PAGE;
+    const endIndex = startIndex + NUMBER_OF_POSTS_PER_PAGE;
 
-  return allPosts.slice(startIndex, endIndex);
-};
+    return allPosts.slice(startIndex, endIndex);
+  }
+);
 
 //タグ名からそのタグのブログを全取得
 export const getPostsByTagName = async (

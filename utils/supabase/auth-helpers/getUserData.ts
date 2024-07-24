@@ -1,8 +1,9 @@
+import { cache } from "react";
 import { supabaseClient } from "../ssr/supabaseClientInit";
 import { SupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 //supabase client
-export const getUserAllData = async (domain: string) => {
+export const getUserAllData = cache(async (domain: string) => {
   const { data: userData, error } = await supabaseClient
     .from("users")
     .select("*")
@@ -14,7 +15,7 @@ export const getUserAllData = async (domain: string) => {
   }
 
   return userData[0];
-};
+});
 
 //auth-helpers
 export const getDomainAndTemplateIdAndProfileImageUrl = async (
@@ -29,3 +30,5 @@ export const getDomainAndTemplateIdAndProfileImageUrl = async (
 
   return userData;
 };
+
+//all domain get

@@ -10,38 +10,37 @@ import {
   getNumberOfPagesByTag,
   getPostsByTagName,
 } from "@/lib/notionAPI";
+import { cache } from "react";
 
-export const getAllNotionPosts = async (
-  notionToken: string,
-  notionId: string
-) => {
-  const notion = notionInit(notionToken);
+export const getAllNotionPosts = cache(
+  async (notionToken: string, notionId: string) => {
+    const notion = notionInit(notionToken);
 
-  try {
-    const allPosts = await getAllPosts(notion, notionId);
+    try {
+      const allPosts = await getAllPosts(notion, notionId);
 
-    return allPosts;
-  } catch (err) {
-    console.error(err);
-    return null;
+      return allPosts;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
   }
-};
+);
 
-export const getNotionHomePagePosts = async (
-  notionToken: string,
-  notionId: string
-) => {
-  const notion = notionInit(notionToken);
+export const getNotionHomePagePosts = cache(
+  async (notionToken: string, notionId: string) => {
+    const notion = notionInit(notionToken);
 
-  try {
-    const homepagePosts = await getPostsForHomePage(notion, notionId);
+    try {
+      const homepagePosts = await getPostsForHomePage(notion, notionId);
 
-    return homepagePosts;
-  } catch (err) {
-    console.error(err);
-    return null;
+      return homepagePosts;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
   }
-};
+);
 
 export const getPostsByPageData = async (
   notionToken: string,
@@ -60,22 +59,20 @@ export const getPostsByPageData = async (
   }
 };
 
-export const getNotionDetailPostData = async (
-  notionToken: string,
-  notionId: string,
-  slug: string
-) => {
-  const notion = notionInit(notionToken);
+export const getNotionDetailPostData = cache(
+  async (notionToken: string, notionId: string, slug: string) => {
+    const notion = notionInit(notionToken);
 
-  try {
-    const notionDetailBlogData = await getDetailPost(notion, notionId, slug);
+    try {
+      const notionDetailBlogData = await getDetailPost(notion, notionId, slug);
 
-    return notionDetailBlogData;
-  } catch (err) {
-    console.error(err);
-    return null;
+      return notionDetailBlogData;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
   }
-};
+);
 
 export const getAllTagsData = async (notionToken: string, notionId: string) => {
   const notion = notionInit(notionToken);

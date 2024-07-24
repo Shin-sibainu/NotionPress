@@ -1,30 +1,10 @@
 import { Badge, badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import {
-  A,
-  BlockQoute,
-  H1,
-  H2,
-  H3,
-  H4,
-  H5,
-  H6,
-  Li,
-  P,
-  Ul,
-} from "@/utils/blog/basic/code-format";
 import { getNotionDetailPostData } from "@/utils/notion/getNotionData";
 import { getUserAllData } from "@/utils/supabase/auth-helpers/getUserData";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Metadata } from "next";
-
-// https://github.com/Shin-sibainu/notion-blog-udemy/blob/main/lib/notionAPI.ts
-// https://www.newt.so/docs/tutorials/generate-anchor-links-using-react-markdown
-// https://github.com/Shin-sibainu/notion-blog-udemy/blob/main/pages/posts/%5Bslug%5D.tsx
 
 export async function generateMetadata({
   params,
