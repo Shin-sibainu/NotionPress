@@ -35,6 +35,12 @@ export default async function Header() {
           </Link>
           <nav className="flex items-center gap-4">
             <Link
+              href={"/blog/how-to-start-with-notion-press"}
+              className="hover:text-muted-foreground/70 sm:text-sm pt-1"
+            >
+              ブログの始め方
+            </Link>
+            <Link
               href={"/blog/templates"}
               className="hover:text-muted-foreground/70 sm:text-sm pt-1"
             >

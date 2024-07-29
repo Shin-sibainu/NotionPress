@@ -8,6 +8,7 @@ import {
   validateNotionTokenCredentials,
 } from "@/utils/setup/check-domain-token-id";
 import { useState } from "react";
+import NotionExplainAccordions from "./NotionExplainAccordions";
 
 export default function NotionSetupComponent({
   onSuccess,
@@ -179,6 +180,10 @@ export default function NotionSetupComponent({
             "決定"
           )}
         </button>
+      </div>
+
+      <div>
+        <NotionExplainAccordions />
       </div>
     </>
   );

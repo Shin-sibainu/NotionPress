@@ -45,6 +45,7 @@ export default function SetupStepComponent({ user }: { user: User | null }) {
     setStep(step - 1);
   };
 
+  //step
   switch (step) {
     case 1:
       return <LoginComponent onSuccess={nextStep} />;

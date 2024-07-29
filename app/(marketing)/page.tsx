@@ -7,23 +7,25 @@ import Script from "next/script";
 
 export default function IndexPage() {
   return (
-    <div className="bg-gradient-to-b from-blue-50 to-white">
+    <div className="bg-gradient-to-b from-[#faf9f8] to-[#fffcfa]">
       <section className="container">
         <div className="md:py-16 space-y-6 py-6 mx-auto text-center">
           <h1 className="text-3xl md:text-6xl font-extrabold tracking-tight text-blue-900">
-            Notionで<span className="text-blue-600">爆速</span>ブログ作成
+            たった3分で
+            <span className="text-orange-600">Notionブログ</span>
+            作成
           </h1>
           <p className="text-sm md:text-2xl text-gray-600 max-w-2xl mx-auto">
-            NotionPressであなたの知識を瞬時にブログへ。
+            プログラムの知識は一切必要ありません。
             <br />
-            難しい設定なし、数クリックで始められます。
+            今日からNotionでブログ投稿をはじめましょう。
           </p>
           <div className="space-x-4 mt-8">
             <Link
               href={"/setup"}
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "bg-blue-600 hover:bg-blue-700"
+                "bg-orange-400 hover:bg-orange-500"
               )}
             >
               今すぐ始める
@@ -32,7 +34,7 @@ export default function IndexPage() {
               href={"/blog/templates"}
               className={cn(
                 buttonVariants({ size: "lg", variant: "outline" }),
-                "text-blue-600 border-blue-600"
+                "text-orange-400 border-orange-400 hover:text-orange-500 hover:border-orange-500"
               )}
             >
               テンプレート一覧
@@ -54,7 +56,7 @@ export default function IndexPage() {
 
       <section id="feature" className="container md:py-24 py-16">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-bold text-center text-blue-900 mb-12">
+          <h2 className="text-3xl md:text-5xl font-bold text-center text-orange-600 mb-12">
             NotionPressの特徴
           </h2>
 
@@ -85,7 +87,7 @@ export default function IndexPage() {
 
       <section className="md:py-24 py-16">
         <div className="container">
-          <h2 className="text-3xl md:text-5xl font-bold text-center text-blue-900 mb-12">
+          <h2 className="text-3xl md:text-5xl font-bold text-center text-orange-600 mb-12">
             魅力的なテンプレート
           </h2>
           <p className="text-xl text-center text-gray-600 mb-16 max-w-2xl mx-auto">
@@ -111,12 +113,12 @@ export default function IndexPage() {
       </section>
 
       <section className="container md:py-24 py-16 bg-gray-100 rounded-md">
-        <h2 className="text-2xl md:text-5xl font-bold text-center text-blue-900 md:mb-16 mb-10">
-          使い方は<span className="text-blue-600">簡単</span>3ステップ
+        <h2 className="text-2xl md:text-5xl font-bold text-center text-orange-900 md:mb-16 mb-10">
+          使い方は<span className="text-orange-600">簡単</span>3ステップ
         </h2>
         <div className="max-w-4xl mx-auto">
           <div className="relative">
-            <div className="absolute left-6 inset-y-0 w-1 bg-blue-200 rounded"></div>
+            <div className="absolute left-6 inset-y-0 w-1 bg-orange-200 rounded"></div>
             <StepItem
               number="1"
               title="Notion基本データの入力"
@@ -138,7 +140,7 @@ export default function IndexPage() {
               href={"/setup"}
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "bg-blue-600 hover:bg-blue-700"
+                "bg-orange-600 hover:bg-orange-700"
               )}
             >
               今すぐ始める
@@ -206,7 +208,7 @@ function TemplateCard({ href, imageSrc, title, description }: any) {
 function StepItem({ number, title, description }: any) {
   return (
     <div className="relative pl-16 pb-8">
-      <div className="absolute left-0 top-0 bg-blue-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">
+      <div className="absolute left-0 top-0 bg-orange-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">
         {number}
       </div>
       <h3 className="text-2xl font-semibold mb-2">{title}</h3>
@@ -215,15 +217,15 @@ function StepItem({ number, title, description }: any) {
   );
 }
 
-function TestimonialCard({ quote, author, role }: any) {
-  return (
-    <div className="bg-white p-8 rounded-xl shadow-lg">
-      <div className="text-4xl text-blue-500 mb-4">"</div>
-      <p className="text-lg text-gray-700 mb-6">{quote}</p>
-      <div>
-        <p className="font-semibold">{author}</p>
-        <p className="text-gray-500">{role}</p>
-      </div>
-    </div>
-  );
-}
+// function TestimonialCard({ quote, author, role }: any) {
+//   return (
+//     <div className="bg-white p-8 rounded-xl shadow-lg">
+//       <div className="text-4xl text-blue-500 mb-4">"</div>
+//       <p className="text-lg text-gray-700 mb-6">{quote}</p>
+//       <div>
+//         <p className="font-semibold">{author}</p>
+//         <p className="text-gray-500">{role}</p>
+//       </div>
+//     </div>
+//   );
+// }
