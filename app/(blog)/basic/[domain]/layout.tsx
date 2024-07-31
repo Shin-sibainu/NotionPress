@@ -1,17 +1,19 @@
 import BasicBlogFooter from "@/components/blog/basic/BasicBlogFooter";
 import BasicBlogHeader from "@/components/blog/basic/BasicBlogHeader";
 import { ThemeProvider } from "@/components/blog/basic/ThemeProvider";
-import { getBlogDetailSettingData } from "@/utils/blog/supabaseDataFetch";
+import { getBlogMetaDataFromDomain } from "@/utils/blog/easy-data-fetch";
 import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
 import { Metadata } from "next";
 
-export async function generateMetadata({}): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { domain: string };
+}): Promise<Metadata> {
   const supabase = supabaseServer();
-  const { data } = await supabase.auth.getUser();
-  const userId = data.user?.id;
+  const blogMetaData = await getBlogMetaDataFromDomain(supabase, params.domain);
 
-  const blogMetaData = await getBlogDetailSettingData(supabase, userId!);
-  const { name, bio, author } = blogMetaData;
+  const { name, bio, author } = blogMetaData!;
 
   return {
     title: {
