@@ -118,7 +118,24 @@ const HowToStartWithNotionPress = () => {
           あともう少しです。先ほど取得したNotion
           TokenとNotionデータベースを連携していきましょう。
         </p>
-        <p>まずはNotionでフルデータベースページを作成します。</p>
+        <p>
+          まずは下の画像のように「/」を入力して「データベース：フルページ」を選択します。
+        </p>
+        <Image
+          src="/images/setup/notion-press-step-7.png"
+          width={900}
+          height={1000}
+          alt="notion-press-step-2"
+          className="border shadow-md"
+        />
+        <p>そしてページ右上の3点ボタンをクリックします。</p>
+        <Image
+          src="/images/setup/notion-press-step-8.png"
+          width={900}
+          height={1000}
+          alt="notion-press-step-2"
+          className="border shadow-md"
+        />
       </article>
     </div>
   );
