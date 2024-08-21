@@ -2,13 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+// export const dynamic = "force-static";
+
 const HowToStartWithNotionPress = () => {
   return (
     <div className="container py-7">
       <article className="prose lg:prose-xl mx-auto">
         <h2 className="">【NotionPressでNotionブログの始め方】</h2>
         <p>
-          大きく分けて3つのステップがあります。
+          大きく分けて5つのステップがあります。
           <Link
             href=""
             className="text-blue-700"
@@ -20,11 +22,13 @@ const HowToStartWithNotionPress = () => {
         </p>
         <ol className="font-bold">
           <li>ドメインとテンプレートの決定</li>
-          <li>NotionToken と NotionIdの取得</li>
+          <li>NotionTokenの取得</li>
+          <li>インテグレーションとNotionデータベースを連携する</li>
+          <li>NotionIDの取得</li>
           <li>ブログの完成🚀</li>
         </ol>
         <p>1つずつ解説します。</p>
-        <h3>①ドメインとテンプレートの決定</h3>
+        <h3 className="underline">①ドメインとテンプレートの決定</h3>
         <p>
           <Link
             href={"/setup"}
@@ -58,10 +62,8 @@ const HowToStartWithNotionPress = () => {
         <p>
           ※テンプレートの有料を選んだ場合は、最後のステップで決済画面に移動します。
         </p>
-        <h3>②NotionToken と NotionIdの取得</h3>
-        <p>少し難しいので、詳細に説明します。</p>
         {/* https://temp.co.jp/blog/2024-01-21-notion-integration-connect#STEP.1%20Notion%20%E9%96%8B%E7%99%BA%E8%80%85%E7%94%A8%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AB%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9 */}
-        <h4 className="font-bold text-xl">📌NotionTokenの取得</h4>
+        <h3 className="underline">②NotionTokenの取得</h3>
         まずは
         <Link
           href="https://developers.notion.com/"
@@ -111,9 +113,9 @@ const HowToStartWithNotionPress = () => {
         <p>
           ※このTokenは外部に漏らさないように厳重に管理するようにしてください。
         </p>
-        <h4 className="font-bold text-xl">
-          📌作成したインテグレーションとNotionデータベースを連携する
-        </h4>
+        <h3 className="underline">
+          ③インテグレーションとNotionデータベースを連携する
+        </h3>
         <p>
           あともう少しです。先ほど取得したNotion
           TokenとNotionデータベースを連携していきましょう。
@@ -136,6 +138,37 @@ const HowToStartWithNotionPress = () => {
           alt="notion-press-step-2"
           className="border shadow-md"
         />
+        <p>接続先から先ほど作成したIntegrationを選択して連携すれば完了です。</p>
+        <Image
+          src="/images/setup/notion-press-step-9.png"
+          width={900}
+          height={1000}
+          alt="notion-press-step-2"
+          className="border shadow-md"
+        />
+        <h3 className="underline">④NotionIDの取得</h3>
+        <p>あともう少しです。</p>
+        <p>
+          NotionIDを取得します。下記の画像のように「リンクをコピー」をクリックします。
+        </p>
+        <Image
+          src="/images/setup/notion-press-step-10.png"
+          width={900}
+          height={1000}
+          alt="notion-press-step-2"
+          className="border shadow-md"
+        />
+        <p>すると、以下のようなURLが取得できるはずです。</p>
+        <p>https://www.notion.so/XXXXXXXX?v=YYYYYYYY</p>
+        <p>
+          NotionIDは<b>「XXXXXXXX」</b>
+          の部分になります。
+        </p>
+        <p>
+          このNotionIDとNotionTokenをブログセットアップ時に貼り付けてください。読み込めたら成功です。
+        </p>
+        {/* secret_FIv64LXf28PS0iP07r80Q25clE5eiR0d9a8IaPI6p3o */}
+        {/* https://www.notion.so/5bd46573e266477dbe5352beb68963ea?v=5c430d3d906042b4bca448d9b665947e&pvs=4 */}
       </article>
     </div>
   );

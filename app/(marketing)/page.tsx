@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 
+// export const dynamic = "force-static";
+
 export default function IndexPage() {
   return (
     <div className="bg-gradient-to-b from-[#faf9f8] to-[#fffcfa]">

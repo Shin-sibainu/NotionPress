@@ -4,6 +4,8 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 
+// export const dynamic = "force-static";
+
 const PrivacyPolicy: React.FC = () => {
   return (
     <>

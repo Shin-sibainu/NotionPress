@@ -3,6 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
 
+// export const dynamic = "force-static";
+
 interface Template {
   id: number;
   title: string;
@@ -28,8 +30,8 @@ const templates: Template[] = [
     title: "クラシック",
     description: "より凝ったブログテンプレートを使いたい方向けです。",
     image: "/images/blog/blog-post-1.jpg",
-    price: "有料",
-    variant: "price",
+    price: "無料",
+    variant: "free",
     slug: "classic/TestBlog",
   },
 ];

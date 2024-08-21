@@ -94,8 +94,8 @@ export default function TemplateSelectComponent({
             <div>
               <div className="flex justify-between items-center py-2">
                 <h3 className="font-bold">クラシック</h3>
-                <Badge className={cn(badgeVariants({ variant: "price" }))}>
-                  有料
+                <Badge className={cn(badgeVariants({ variant: "free" }))}>
+                  無料
                 </Badge>
               </div>
               <p className="text-muted-foreground text-sm mt-1">
