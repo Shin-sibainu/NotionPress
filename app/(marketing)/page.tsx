@@ -44,15 +44,22 @@ export default function IndexPage() {
           </div>
         </div>
 
-        <div className="mx-auto mt-2 shadow-2xl rounded-lg overflow-hidden">
-          <iframe
+        <div className="mx-auto md:-mt-4">
+          {/* <iframe
             src="https://player.vimeo.com/video/948201541?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1"
             frameBorder="0"
             allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
             className="w-full aspect-video"
             title="NotionPressの使い方"
-          ></iframe>
-          <Script src="https://player.vimeo.com/api/player.js"></Script>
+          ></iframe> */}
+          {/* <Script src="https://player.vimeo.com/api/player.js"></Script> */}
+          <Image
+            src={"/images/notion-top-page-image-5.png"}
+            alt="top-page-image"
+            width={1280}
+            height={600}
+            className="mx-auto"
+          />
         </div>
       </section>
 

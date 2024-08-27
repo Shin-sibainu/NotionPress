@@ -3,6 +3,7 @@ import { getNotionDetailPostData } from "@/utils/notion/getNotionData";
 import { getUserAllData } from "@/utils/supabase/auth-helpers/getUserData";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import ReactMarkdown from "react-markdown";
 
 export async function generateMetadata({
@@ -73,7 +74,9 @@ export default async function ClassicNotionBlogDetailPage({
   return (
     <section>
       <PostSimpleLayout content={detailPost?.metadata!}>
-        <ReactMarkdown>{detailPost?.markdown}</ReactMarkdown>
+        <Suspense fallback={<div>Loading content...</div>}>
+          <ReactMarkdown>{detailPost?.markdown}</ReactMarkdown>
+        </Suspense>
       </PostSimpleLayout>
     </section>
   );

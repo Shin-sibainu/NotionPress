@@ -108,12 +108,16 @@ export const getDetailPost = cache(
 
     //https://github.com/souvikinator/notion-to-md
     const n2m = new NotionToMarkdown({ notionClient: notion });
-    const mdBlocks = await n2m.pageToMarkdown(page.id);
-    const mdString = n2m.toMarkdownString(mdBlocks).parent;
+    // const mdBlocks = await n2m.pageToMarkdown(page.id, 2);
+    // const mdString = n2m.toMarkdownString(mdBlocks).parent;
+
+    // ページブロックを取得する際にrecursiveオプションを使用して不要な深い階層の取得を避ける
+    const mdBlocks = await n2m.pageToMarkdown(page.id, 2); // 2は再帰の深さ。必要に応じて調整してください。
+    const mdString = n2m.toMarkdownString(mdBlocks);
 
     return {
       metadata,
-      markdown: mdString,
+      markdown: mdString.parent,
     };
   }
 );
