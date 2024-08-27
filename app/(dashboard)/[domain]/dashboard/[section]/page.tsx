@@ -1,7 +1,7 @@
 import AccountContentView from "@/components/dashboard/content-view/AccountContentView";
 import BlogContentView from "@/components/dashboard/content-view/BlogContentView";
 import HowToWriteBlogWithNotion from "@/components/dashboard/content-view/HowToWriteBlogWithNotion";
-import Sidebar from "@/components/dashboard/sidebar";
+import Sidebar from "@/components/dashboard/Sidebar";
 import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
 import { notFound, redirect } from "next/navigation";
 
