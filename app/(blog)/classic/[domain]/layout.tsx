@@ -14,29 +14,39 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const supabase = supabaseServer();
   const blogMetaData = await getBlogMetaDataFromDomain(supabase, params.domain);
+  // デフォルト値を設定
+  const defaultTitle = "Classic Blog";
+  const defaultDescription = "This Blog is Classic Template";
+  const defaultAuthor = "John Doe";
 
-  const { name, bio, author } = blogMetaData!;
+  // 空文字列もデフォルト値を使用するように修正
+  const getValueOrDefault = (
+    value: string | null | undefined,
+    defaultValue: string
+  ) => (value && value.trim() !== "" ? value : defaultValue);
+
+  const title = getValueOrDefault(blogMetaData?.name, defaultTitle);
+  const description = getValueOrDefault(blogMetaData?.bio, defaultDescription);
+  const author = getValueOrDefault(blogMetaData?.author, defaultAuthor);
 
   return {
     title: {
-      default: name,
-      template: name ? `%s | ${name}` : "ブログ",
+      default: title,
+      template: `%s | ${title}`,
     },
-    description: bio,
+    description: description,
     authors: { name: author },
     openGraph: {
       type: "website",
       locale: "ja",
-      // url: siteConfig.url,
-      title: name,
-      description: bio,
-      siteName: name,
+      title: title,
+      description: description,
+      siteName: title,
     },
     twitter: {
       card: "summary_large_image",
-      title: name,
-      description: bio,
-      // images: [`${siteConfig.url}/og.jpg`],
+      title: title,
+      description: description,
       creator: author,
     },
   };

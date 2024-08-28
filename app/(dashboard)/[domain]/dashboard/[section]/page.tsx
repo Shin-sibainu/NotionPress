@@ -3,7 +3,13 @@ import BlogContentView from "@/components/dashboard/content-view/BlogContentView
 import HowToWriteBlogWithNotion from "@/components/dashboard/content-view/HowToWriteBlogWithNotion";
 import Sidebar from "@/components/dashboard/Sidebar";
 import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
+import dynamic from "next/dynamic";
 import { notFound, redirect } from "next/navigation";
+
+const CelebrationWrapper = dynamic(
+  () => import("@/components/dashboard/common/CelebrationWrapper"),
+  { ssr: false }
+);
 
 export default async function DashBoardPage({
   params,
@@ -40,6 +46,7 @@ export default async function DashBoardPage({
 
   return (
     <div className="container py-6 md:py-14">
+      <CelebrationWrapper />
       <div className="flex flex-col md:flex-row gap-2">
         <div className="md:w-1/5">
           <Sidebar domain={domain} section={section} />

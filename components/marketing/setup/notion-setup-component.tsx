@@ -10,6 +10,9 @@ import {
 import { useState } from "react";
 import NotionExplainAccordions from "./NotionExplainAccordions";
 
+//secret_uc7RDVzbGbIxkyStI2swlJejlAUsnQrPdEBz5hnYdfd
+//127ef6b3de6b408880c046925f5917c6
+
 export default function NotionSetupComponent({
   onSuccess,
   onBack,
@@ -21,10 +24,8 @@ export default function NotionSetupComponent({
     data: Partial<{ notionToken: string; notionId: string }>
   ) => void;
 }) {
-  const [notionToken, setNotionToken] = useState(
-    "secret_uc7RDVzbGbIxkyStI2swlJejlAUsnQrPdEBz5hnYdfd"
-  );
-  const [notionId, setNotionId] = useState("127ef6b3de6b408880c046925f5917c6");
+  const [notionToken, setNotionToken] = useState("");
+  const [notionId, setNotionId] = useState("");
   const [errorToken, setErrorToken] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorId, setErrorID] = useState("");
@@ -78,6 +79,7 @@ export default function NotionSetupComponent({
     if (notionToken === "") {
       setErrorToken("Notion Integration Tokenを入力してください。");
       isValid = false;
+      setIsLoading(false);
     } else {
       setErrorToken("");
     }
@@ -85,6 +87,7 @@ export default function NotionSetupComponent({
     if (notionId === "") {
       setErrorID("Notion IDを入力してください。");
       isValid = false;
+      setIsLoading(false);
     } else {
       setErrorID("");
     }
@@ -109,7 +112,7 @@ export default function NotionSetupComponent({
       <p className="text-muted-foreground">
         あなたのNotion情報を使ってNotionPressと連携させます。以下の情報を入力してください。
       </p>
-      <div className="space-y-4">
+      <div className="">
         <div>
           <Label
             htmlFor="notionToken"
@@ -117,7 +120,6 @@ export default function NotionSetupComponent({
           >
             Notion Integration Token
           </Label>
-          <span> ?</span>
           <Input
             id="notionToken"
             placeholder="secret_*****"
@@ -133,14 +135,13 @@ export default function NotionSetupComponent({
             <p className="text-red-500 mt-1 font-bold">{errorToken}</p>
           )}
         </div>
-        <div>
+        <div className="mt-4">
           <Label
             htmlFor="notionId"
             className={`${errorNotionIdCredentials && "text-red-500"}`}
           >
             Notion ID
           </Label>
-          <span> ?</span>
           <Input
             id="notionId"
             placeholder="https://www.notion.so/{Notion ID}?v=8241337ff0c0415dba363ea6d574190e&pvs=4"

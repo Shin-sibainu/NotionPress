@@ -11,14 +11,14 @@ const HowToStartWithNotionPress = () => {
         <h2 className="">【NotionPressでNotionブログの始め方】</h2>
         <p>
           大きく分けて5つのステップがあります。
-          <Link
+          {/* <Link
             href=""
             className="text-blue-700"
             target="_blank"
             rel="noreferrer"
           >
             (動画で理解したい方はこちら)
-          </Link>
+          </Link> */}
         </p>
         <ol className="font-bold">
           <li>ドメインとテンプレートの決定</li>
@@ -28,7 +28,9 @@ const HowToStartWithNotionPress = () => {
           <li>ブログの完成🚀</li>
         </ol>
         <p>1つずつ解説します。</p>
-        <h3 className="underline">①ドメインとテンプレートの決定</h3>
+        <h3 id="step1" className="underline">
+          ①ドメインとテンプレートの決定
+        </h3>
         <p>
           <Link
             href={"/setup"}
@@ -63,7 +65,9 @@ const HowToStartWithNotionPress = () => {
           ※テンプレートの有料を選んだ場合は、最後のステップで決済画面に移動します。
         </p>
         {/* https://temp.co.jp/blog/2024-01-21-notion-integration-connect#STEP.1%20Notion%20%E9%96%8B%E7%99%BA%E8%80%85%E7%94%A8%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AB%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9 */}
-        <h3 className="underline">②NotionTokenの取得</h3>
+        <h3 id="step2" className="underline">
+          ②NotionTokenの取得
+        </h3>
         まずは
         <Link
           href="https://developers.notion.com/"
@@ -113,7 +117,7 @@ const HowToStartWithNotionPress = () => {
         <p>
           ※このTokenは外部に漏らさないように厳重に管理するようにしてください。
         </p>
-        <h3 className="underline">
+        <h3 id="step3" className="underline">
           ③インテグレーションとNotionデータベースを連携する
         </h3>
         <p>
@@ -146,7 +150,9 @@ const HowToStartWithNotionPress = () => {
           alt="notion-press-step-2"
           className="border shadow-md"
         />
-        <h3 className="underline">④NotionIDの取得</h3>
+        <h3 id="step4" className="underline">
+          ④NotionIDの取得
+        </h3>
         <p>あともう少しです。</p>
         <p>
           NotionIDを取得します。下記の画像のように「リンクをコピー」をクリックします。

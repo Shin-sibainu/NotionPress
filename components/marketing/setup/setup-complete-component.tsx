@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Icons } from "@/lib/Icons";
 import { isPaidTemplate } from "@/utils/setup/templateConstants";
+import { templateIdToTemplateName } from "@/utils/switch-templateId-to-templateName";
 
 export default function SetupCompleteComponent({
   onBack,
@@ -17,6 +18,9 @@ export default function SetupCompleteComponent({
   const [isLoading, setIsLoading] = useState(false);
   const [isStripeLoading, setIsStripeLoading] = useState(false);
   const [blogCreateError, setBlogCreateError] = useState("");
+
+  const { notionToken, notionId, siteDomain, templateId } = setupData;
+  let blogTemplateName = templateIdToTemplateName(templateId);
 
   const handleCreateBlog = async () => {
     if (isPaidTemplate(Number(setupData.templateId))) {
@@ -33,6 +37,8 @@ export default function SetupCompleteComponent({
           }
         );
         const session = await response.json();
+
+        localStorage.setItem("blogCreationSuccess", "true");
         router.push(session.url);
       } catch (error) {
         console.error("Stripe session creation failed", error);
@@ -78,6 +84,7 @@ export default function SetupCompleteComponent({
           }
         );
 
+        localStorage.setItem("blogCreationSuccess", "true");
         router.push(`/${setupData.siteDomain}/dashboard/blog`);
       } catch (err) {
         console.log(err);
@@ -118,25 +125,27 @@ export default function SetupCompleteComponent({
             <div className="space-y-6">
               <div>
                 <span className="">ブログURL</span>
-                <p className="font-bold text-xl">{setupData.siteDomain}</p>
+                <p className="font-bold text-xl">{siteDomain}</p>
                 <hr className="mt-2" />
               </div>
 
               <div>
                 <span className="">Notion Integration Token</span>
-                <p className="font-bold text-xl">{setupData.notionToken}</p>
+                <p className="font-bold text-xl">{notionToken}</p>
                 <hr className="mt-2" />
               </div>
 
               <div>
                 <span className="">Notion ID</span>
-                <p className="font-bold text-xl">{setupData.notionId}</p>
+                <p className="font-bold text-xl">{notionId}</p>
                 <hr className="mt-2" />
               </div>
 
               <div>
                 <span className="">ブログテンプレート</span>
-                <p className="font-bold text-xl">{setupData.templateId}</p>
+                <p className="font-bold text-xl">
+                  {blogTemplateName + "テーマ"}
+                </p>
                 <hr className="mt-2" />
               </div>
             </div>

@@ -44,7 +44,7 @@ export default function IndexPage() {
           </div>
         </div>
 
-        <div className="mx-auto md:-mt-4">
+        <div className="mx-auto md:-mt-14">
           {/* <iframe
             src="https://player.vimeo.com/video/948201541?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1"
             frameBorder="0"
@@ -54,7 +54,7 @@ export default function IndexPage() {
           ></iframe> */}
           {/* <Script src="https://player.vimeo.com/api/player.js"></Script> */}
           <Image
-            src={"/images/notion-top-page-image-5.png"}
+            src={"/images/notion-top-page-image-6.png"}
             alt="top-page-image"
             width={1280}
             height={600}

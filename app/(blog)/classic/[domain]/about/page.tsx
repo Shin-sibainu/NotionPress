@@ -2,9 +2,14 @@ import AuthorLayout from "@/components/blog/classic/AuthorLayout";
 import { getBlogMetaDataFromDomain } from "@/utils/blog/easy-data-fetch";
 import { getUserProfileImageUrlFromDomain } from "@/utils/blog/supabaseDataFetch";
 import { supabaseServer } from "@/utils/supabase/auth-helpers/supabaseServer";
+import { Metadata } from "next";
 
 //https://tailwind-nextjs-starter-blog.vercel.app/about
 //https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/app/about/page.tsx
+
+export const metadata: Metadata = {
+  title: "About",
+};
 
 export default async function AboutPage({
   params,
