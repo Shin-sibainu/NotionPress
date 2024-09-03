@@ -26,7 +26,12 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     siteName: siteConfig.name,
     images: [
-      { url: "", width: 1200, height: 630, alt: "NotionPress OG image" },
+      {
+        url: "/images/og/notion-press-og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "NotionPress OG image",
+      },
     ],
   },
   twitter: {
@@ -34,7 +39,12 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [
-      { url: "", width: 1200, height: 630, alt: "NotionPress OG image" },
+      {
+        url: "/images/og/notion-press-og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "NotionPress OG image",
+      },
     ],
     creator: "@shincode",
   },
