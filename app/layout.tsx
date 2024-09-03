@@ -18,6 +18,10 @@ export const metadata: Metadata = {
     },
   ],
   creator: "shincode",
+  metadataBase:
+    process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
+      ? new URL("https://notion-press.vercel.app")
+      : undefined,
   openGraph: {
     type: "website",
     locale: "ja",
@@ -25,27 +29,13 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     siteName: siteConfig.name,
-    images: [
-      {
-        url: "/opengraph-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "NotionPress OG image",
-      },
-    ],
+    images: "/opengraph-image.png",
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [
-      {
-        url: "/opengraph-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "NotionPress OG image",
-      },
-    ],
+    images: "/opengraph-image.png",
     creator: "@shincode",
   },
 };
