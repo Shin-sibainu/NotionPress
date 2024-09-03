@@ -45,14 +45,6 @@ export default function IndexPage() {
         </div>
 
         <div className="mx-auto md:-mt-14">
-          {/* <iframe
-            src="https://player.vimeo.com/video/948201541?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1"
-            frameBorder="0"
-            allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
-            className="w-full aspect-video"
-            title="NotionPressの使い方"
-          ></iframe> */}
-          {/* <Script src="https://player.vimeo.com/api/player.js"></Script> */}
           <Image
             src={"/images/notion-top-page-image-6.png"}
             alt="top-page-image"
@@ -104,16 +96,16 @@ export default function IndexPage() {
             クリック一つで、プロ級のブログデザインを適用できます。
           </p>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <TemplateCard
               href="/basic/TestBlog"
-              imageSrc="/images/blog/blog-post-1.jpg"
+              imageSrc="/images/notion-basic-template.png"
               title="ベーシックテンプレート"
               description="シンプルで使いやすい、初心者向けデザイン"
             />
             <TemplateCard
               href="/classic/TestBlog"
-              imageSrc="/images/blog/blog-post-2.jpg"
+              imageSrc="/images/notion-classic-template.png"
               title="クラシックテンプレート"
               description="落ち着いた雰囲気の、読みやすいデザイン"
             />
@@ -195,16 +187,16 @@ function TemplateCard({ href, imageSrc, title, description }: any) {
   return (
     <Link
       href={href}
-      className="group block bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105"
+      className="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105"
       target="_blank"
       rel="noreferrer"
     >
       <Image
         src={imageSrc}
         alt={title}
-        width={400}
-        height={500}
-        className="w-full h-48 object-cover"
+        width={300}
+        height={400}
+        className="w-full md:h-[350px] object-contain bg-gray-200"
       />
       <div className="p-6">
         <h3 className="text-xl font-semibold mb-2">{title}</h3>

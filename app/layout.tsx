@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     images: [
       {
-        url: "/images/og/notion-press-og-image.png",
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: "NotionPress OG image",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: "/images/og/notion-press-og-image.png",
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: "NotionPress OG image",
