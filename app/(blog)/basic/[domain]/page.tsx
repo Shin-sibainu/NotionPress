@@ -9,8 +9,14 @@ export default async function BasicBlogHomePage({
   const domain = params.domain;
   const userData = await getUserAllData(domain);
 
+  let userIsSelectedThisTemplate = userData?.template_id === 1; //basic
+
   if (!userData) {
     return <div>データが存在しません。</div>;
+  }
+
+  if (!userIsSelectedThisTemplate) {
+    return <div>あなたはこのテンプレートをご利用いただけません。</div>;
   }
 
   return (

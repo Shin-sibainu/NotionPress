@@ -3,9 +3,6 @@ import { Icons } from "@/lib/Icons";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
-
-// export const dynamic = "force-static";
 
 export default function IndexPage() {
   return (
@@ -149,24 +146,6 @@ export default function IndexPage() {
           </div>
         </div>
       </section>
-
-      {/* <section className="container py-24">
-        <h2 className="text-4xl md:text-5xl font-bold text-center text-blue-900 mb-16">
-          ユーザーの<span className="text-blue-600">声</span>
-        </h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          <TestimonialCard
-            quote="NotionPressのおかげで、ブログ運営がこんなに簡単だとは思いませんでした。Notionユーザーには必須のツールです！"
-            author="田中 花子"
-            role="フリーランスライター"
-          />
-          <TestimonialCard
-            quote="プログラミングの知識がなくても、プロ級のブログが作れるなんて感動です。しかも無料から始められるのが嬉しいですね。"
-            author="佐藤 太郎"
-            role="起業家"
-          />
-        </div>
-      </section> */}
     </div>
   );
 }
@@ -187,20 +166,22 @@ function TemplateCard({ href, imageSrc, title, description }: any) {
   return (
     <Link
       href={href}
-      className="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105"
+      className="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105 flex flex-col h-full"
       target="_blank"
       rel="noreferrer"
     >
-      <Image
-        src={imageSrc}
-        alt={title}
-        width={300}
-        height={400}
-        className="w-full md:h-[350px] object-contain bg-gray-200"
-      />
-      <div className="p-6">
-        <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600">{description}</p>
+      <div className="relative w-full pt-[66.67%] overflow-hidden">
+        <Image
+          src={imageSrc}
+          alt={title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover object-top"
+        />
+      </div>
+      <div className="p-4 sm:p-6 flex-grow">
+        <h3 className="text-lg sm:text-xl font-semibold mb-2">{title}</h3>
+        <p className="text-sm sm:text-base text-gray-600">{description}</p>
       </div>
     </Link>
   );
@@ -217,16 +198,3 @@ function StepItem({ number, title, description }: any) {
     </div>
   );
 }
-
-// function TestimonialCard({ quote, author, role }: any) {
-//   return (
-//     <div className="bg-white p-8 rounded-xl shadow-lg">
-//       <div className="text-4xl text-blue-500 mb-4">"</div>
-//       <p className="text-lg text-gray-700 mb-6">{quote}</p>
-//       <div>
-//         <p className="font-semibold">{author}</p>
-//         <p className="text-gray-500">{role}</p>
-//       </div>
-//     </div>
-//   );
-// }

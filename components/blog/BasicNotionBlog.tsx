@@ -64,7 +64,7 @@ export default async function BasicNotionBlog({
           <AvatarImage src={user_profile_image_url} alt="profile_icon" />
           <AvatarFallback>{""}</AvatarFallback>
         </Avatar>
-        <div className="mt-1">
+        <div className="md:mt-1 mt-7">
           <span className="font-bold md:text-2xl text-2xl">{blogName}</span>
           <p className="text-muted-foreground text-sm sm:text-base">{bio}</p>
         </div>

@@ -7,7 +7,7 @@ import React from "react";
 const HowToStartWithNotionPress = () => {
   return (
     <div className="container py-7">
-      <article className="prose lg:prose-xl mx-auto">
+      <article className="prose lg:prose-base mx-auto">
         <h2 className="">【NotionPressでNotionブログの始め方】</h2>
         <p>
           大きく分けて5つのステップがあります。

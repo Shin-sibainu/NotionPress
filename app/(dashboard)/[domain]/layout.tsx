@@ -11,7 +11,8 @@ export default function DashBoardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    /* bg-gradient-to-b from-[#faf9f8] to-[#fffcfa] */
+    <div className="">
       <Header />
       <main>{children}</main>
     </div>

@@ -256,17 +256,23 @@ export default function BlogContentDetailSettings({
         </div>
       </div>
 
-      <div className="py-8">
+      {/* 収益化機能 */}
+      {/* <div className="py-8">
         <div className="space-y-3">
           <span className="font-medium sm:text-xl text-lg">ブログの収益化</span>
 
           <div>
-            <Label className="font-normal">Googleアドセンスコード ?</Label>
+            <Label className="font-normal">Googleアドセンスコード</Label>
             <Input
               placeholder="xxxxxxxxxxxx"
               className="mt-1"
               {...register("google_adsense")}
+              disabled
             />
+
+            <p className="text-sm text-yellow-600 flex items-center">
+              この機能は現在開発中です。もうしばらくお待ちください。
+            </p>
             {errors.google_adsense && (
               <span className="inline-block text-red-500 font-medium mt-1">
                 {errors.google_adsense.message}
@@ -274,7 +280,7 @@ export default function BlogContentDetailSettings({
             )}
           </div>
         </div>
-      </div>
+      </div> */}
 
       <button
         type="submit"

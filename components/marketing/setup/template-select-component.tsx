@@ -46,14 +46,17 @@ export default function TemplateSelectComponent({
               setTemplateError("");
             }}
           >
-            <Image
-              src={"/images/blog/blog-post-1.jpg"}
-              width={340}
-              height={340}
-              priority
-              alt="blog-post-1"
-              className="mx-auto"
-            />
+            <div className="h-64 overflow-hidden">
+              {/* 画像コンテナ */}
+              <Image
+                src={"/images/notion-basic-template.png"}
+                width={450}
+                height={360}
+                priority
+                alt="blog-post-1"
+                className="object-cover object-top"
+              />
+            </div>
             <div>
               <div className="flex justify-between items-center py-2">
                 <h3 className="font-bold">ベーシック</h3>
@@ -65,7 +68,7 @@ export default function TemplateSelectComponent({
                 無料で使えるブログテンプレートです。
               </p>
               <Link
-                href={"/basic-notion-blog"}
+                href="/basic/TestBlog"
                 className="text-sm mt-3 inline-block underline"
                 target="_blank"
                 rel="noreferrer"
@@ -83,14 +86,17 @@ export default function TemplateSelectComponent({
               setTemplateError("");
             }}
           >
-            <Image
-              src={"/images/blog/blog-post-1.jpg"}
-              width={340}
-              height={340}
-              priority
-              alt="blog-post-1"
-              className="mx-auto"
-            />
+            <div className="h-64 overflow-hidden">
+              {/* 画像コンテナ */}
+              <Image
+                src={"/images/notion-classic-template.png"}
+                width={450}
+                height={360}
+                priority
+                alt="blog-post-1"
+                className="object-cover object-top"
+              />
+            </div>
             <div>
               <div className="flex justify-between items-center py-2">
                 <h3 className="font-bold">クラシック</h3>
@@ -102,7 +108,7 @@ export default function TemplateSelectComponent({
                 より凝ったブログテンプレートを使い方向けです。
               </p>
               <Link
-                href={"/classic-notion-blog"}
+                href="/classic/TestBlog"
                 className="text-sm mt-3 inline-block underline"
                 target="_blank"
                 rel="noreferrer"
